@@ -3,23 +3,93 @@
 @tailwind utilities;
 
 .section {
-    width: 80rem;
-    @apply p-4;
+  width: 80rem;
+  @apply p-4 mx-auto;
 }
 
 @keyframes float {
-    0% {
-      box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-      transform: translatey(0px);
-    }
-  
-    50% {
-      box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
-      transform: translatey(-20px);
-    }
-  
-    100% {
-      box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-      transform: translatey(0px);
-    }
+  0% {
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translatey(0px);
   }
+
+  50% {
+    box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+    transform: translatey(-20px);
+  }
+
+  100% {
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translatey(0px);
+  }
+}
+
+.skillbar {
+  width: 20rem;
+  margin: 10px 0;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.skillbar .title {
+  background-color: #235bdd;
+  height: 30px;
+  width: 85px;
+  text-align: center;
+  left: 0;
+  color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.skillbar .percent,
+.skillbar .title {
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  z-index: 9;
+}
+
+.skillbar .percent {
+  right: 0;
+  color: #000;
+  font-weight: 700;
+}
+
+.skillbar .filled {
+  z-index: 8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #235bdd;
+  height: 100%;
+  border-radius: 5px;
+}
+.bg-gradient {
+  position: relative;
+}
+
+.bg-gradient > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-gradient:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  @apply rounded bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500;
+  transition: transform 0.3s;
+}
+
+.bg-gradient:hover::after {
+  transform: scaleY(1);
+}
