@@ -1,3 +1,7 @@
 export default function Projects() {
-  return <></>;
+  return (
+    <>
+      <p>aaos</p>
+    </>
+  );
 }
