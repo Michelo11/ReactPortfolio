@@ -16,7 +16,7 @@ export default function Index() {
   return (
     <div
       className={
-        "bg-gray-900 text-white flex-col items-center flex m-auto" +
+        "bg-gray-900 text-white flex-col items-center flex m-auto " +
         inter.className
       }
     >
@@ -27,8 +27,8 @@ export default function Index() {
       <Navbar />
       <Home />
 
-      <div className="bg-gradient-to-r from-[#1d4ed8] to-[#70d9ff] w-full mt-[150px] xl:mt-[180px] h-64 px-4 xl:px-0">
-        <div className="section mt-10 space-y-2">
+      <div className="bg-gradient-to-r from-[#1d4ed8] to-[#70d9ff] h-64 mt-[150px] w-full px-4 xl:mt-[180px] xl:px-0">
+        <div className="space-y-2 mt-10 section">
           <p className="font-semibold text-2xl">
             Need a website that looks different, better and amazing?
           </p>
@@ -36,7 +36,7 @@ export default function Index() {
             Get in touch with me to get your personal quote
           </p>
           <button
-            className="bg-white text-black p-3 rounded-lg flex justify-center items-center font-semibold"
+            className="bg-white rounded-lg flex font-semibold text-black p-3 justify-center items-center"
             type="button"
           >
             Contact Me

@@ -26,7 +26,7 @@ export default function Reviews() {
         </p>
       </div>
 
-      {reviews && (
+      {reviews && reviews.map && (
         <OwlCarousel
           autoplay={true}
           autoplayTimeout={2000}
