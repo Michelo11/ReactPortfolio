@@ -21,7 +21,7 @@ export default function Reviews() {
     <div className="mt-20 flex flex-col items-center section" id="reviews">
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-semibold">Reviews</h1>
-        <p className="text-gray-300">
+        <p className="text-gray-300 mx-4 text-center">
           Discover what my past clients have to say about me
         </p>
       </div>

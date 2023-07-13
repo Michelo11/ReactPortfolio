@@ -27,8 +27,8 @@ export default function Index() {
       <Navbar />
       <Home />
 
-      <div className="bg-gradient-to-r from-[#1d4ed8] to-[#70d9ff] h-64 mt-[150px] w-full px-4 xl:mt-[180px] xl:px-0">
-        <div className="space-y-2 mt-10 section">
+      <div className="bg-gradient-to-r from-[#1d4ed8] to-[#70d9ff] md:h-64 mt-[150px] w-full p-4 xl:mt-[180px] xl:p-0">
+        <div className="space-y-2 md:mt-10 section">
           <p className="font-semibold text-2xl">
             Need a website that looks different, better and amazing?
           </p>
