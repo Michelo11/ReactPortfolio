@@ -8,6 +8,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
 import { NextAuthProvider } from "./providers";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Michele | Portfolio",
@@ -23,8 +24,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+      <body
+        className={
+          "flex flex-col mt-12 mx-24 bg-background text-white " +
+          inter.className
+        }
+      >
+        <NextAuthProvider>
+          <Navbar />
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );
