@@ -1,3 +1,5 @@
+"use client";
+
 import { Typewriter } from "react-simple-typewriter";
 import Image from "next/image";
 

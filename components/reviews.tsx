@@ -1,3 +1,5 @@
+"use client";
+
 import { useFetcher } from "@/utils/fetcher";
 import Review from "./review";
 

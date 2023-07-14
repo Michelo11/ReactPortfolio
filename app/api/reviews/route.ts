@@ -1,9 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function GET(request: Request) {
   try {
     const data = await fetch(`https://projectsapi.p.rapidapi.com/reviews`, {
       method: "GET",
@@ -13,8 +8,13 @@ export default async function handler(
       },
     }).then((res) => res.json());
 
-    res.status(200).json(data);
+    return data;
   } catch (error) {
-    res.status(500).json({ error: "An error has occurred" });
+    return new Response(JSON.stringify({ error: "An error has occurred" }), {
+      status: 500,
+      headers: {
+        ContentType: "application/json",
+      },
+    });
   }
 }

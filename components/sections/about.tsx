@@ -24,8 +24,9 @@ export default function About() {
             data-aos-duration="1000"
           >
             <p className="text-gray-300 text-[18px]">
-              I&apos;m a developer, designer and system administrator from Italy. I
-              can design and create everything for you and your company.
+              I&apos;m a developer, designer and system administrator from
+              Italy. I can design and create everything for you and your
+              company.
             </p>
 
             <p className="text-gray-300 text-[18px]">

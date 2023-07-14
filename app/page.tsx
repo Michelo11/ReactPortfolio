@@ -1,29 +1,16 @@
-import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
-import Head from "next/head";
 
-import Reviews from "@/components/reviews";
 import Footer from "@/components/footer";
-import About from "@/components/sections/about";
-import Skills from "@/components/sections/skills";
-import Home from "@/components/sections/home";
 import Form from "@/components/form";
+import Reviews from "@/components/reviews";
+import About from "@/components/sections/about";
+import Home from "@/components/sections/home";
 import Services from "@/components/sections/services";
+import Skills from "@/components/sections/skills";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Index() {
+export default function HomePage() {
   return (
-    <div
-      className={
-        "bg-gray-900 text-white flex-col items-center flex m-auto " +
-        inter.className
-      }
-    >
-      <Head>
-        <title>Michele | Portfolio</title>
-      </Head>
-
+    <div className="bg-gray-900 text-white flex-col items-center flex m-auto">
       <Navbar />
       <Home />
 
