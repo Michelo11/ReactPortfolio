@@ -39,7 +39,7 @@ export const Hero = function Hero() {
         A student from Italy who loves developing fullstack <br /> websites,
         designing and administrating systems.
       </p>
-      <button className="mt-10 button w-48 h-14">LEARN MORE</button>
+      <button className="mt-10 custom-button w-48 h-14">LEARN MORE</button>
       <div className="animate-bounce">
         <Image
           placeholder="empty"

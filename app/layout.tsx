@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import "@/styles/globals.css";
-import "@/styles/screen.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { Inter } from "next/font/google";
 
@@ -36,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={
-          "flex flex-col mt-12 mx-10 md:mx-24 bg-background text-white " +
+          "flex flex-col mx-10 md:mx-24 bg-background text-white " +
           inter.className
         }
       >

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const Navbar = function Navbar() {
   return (
-    <nav className="bg-slate-700/30 p-6 flex justify-center md:justify-between rounded-xl z-10">
+    <nav className="bg-slate-700/30 mt-12 p-6 flex justify-center md:justify-between rounded-xl z-10">
       <Link className="text-white uppercase" href="/">
         Michele
       </Link>

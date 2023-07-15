@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
+    "daisyui": "^3.2.1",
     "eslint-config-next": "13.4.10",
     "eslint-config-prettier": "^8.8.0",
     "prettier": "^3.0.0",

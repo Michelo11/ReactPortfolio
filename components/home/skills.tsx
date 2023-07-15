@@ -82,7 +82,7 @@ const SkillButton = function SkillButton(
       onClick={() => {
         props.set(skills.findIndex((skill) => skill.id === props.id));
       }}
-      className={"mini-card " + (props.selected ? "card" : "")}
+      className={"custom-mini-card " + (props.selected ? "custom-card" : "")}
     >
       <FontAwesomeIcon
         icon={props.icon}

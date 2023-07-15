@@ -47,7 +47,8 @@ const ServiceCard = function ServiceCard(
   return (
     <div
       className={
-        "card px-10 py-6 w-full gap-8 xl:h-52 " + (props.alt ? "md:ml-20" : "")
+        "custom-card px-10 py-6 w-full gap-8 xl:h-52 " +
+        (props.alt ? "md:ml-20" : "")
       }
     >
       <FontAwesomeIcon
@@ -57,7 +58,7 @@ const ServiceCard = function ServiceCard(
       <div className="flex flex-col gap-2 text-left">
         <h1 className="text-xl text-gray-400">{props.name}</h1>
         <p className="text-gray-500">{props.description}</p>
-        <button className="button text-gray-400 font-bold text-sm mt-auto w-44 h-10 shadow-lg shadow-primary/30">
+        <button className="custom-button font-bold text-sm mt-auto w-44 h-10 shadow-lg shadow-primary/30">
           VIEW PORTFOLIO
         </button>
       </div>

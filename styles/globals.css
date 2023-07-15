@@ -3,19 +3,23 @@
 @tailwind utilities;
 
 @layer components {
-  .card {
+  .custom-card {
     @apply bg-slate-700/30 rounded-xl flex shadow-lg;
   }
 
-  .mini-card {
+  .custom-mini-card {
     @apply hover:card flex gap-4 items-center justify-start transition-all ease-in-out duration-200 py-2 px-4;
   }
 
-  .button {
+  .custom-button {
     @apply font-bold rounded-xl bg-primary shadow-lg shadow-primary/50 p-4 flex text-center items-center justify-center;
   }
 }
 
 * {
   scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
 }

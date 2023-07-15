@@ -4,7 +4,7 @@ import { Section } from "./section";
 export const AboutMe = function AboutMe() {
   return (
     <Section id={1} name="About Me">
-      <div className="card flex-col md:flex-row justify-between xl:w-2/5 md:h-80">
+      <div className="custom-card flex-col md:flex-row justify-between xl:w-2/5 md:h-80">
         <Image
           src="/img/coding.jpg"
           alt="coding"

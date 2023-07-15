@@ -9,7 +9,7 @@ type Review = {
 
 const ReviewCard = function ReviewCard(props: Review) {
   return (
-    <div className="card xl:h-52 md:w-3/5 xl:w-2/5 p-10 text-center flex-col justify-center items-center">
+    <div className="custom-card xl:h-52 md:w-3/5 xl:w-2/5 p-10 text-center flex-col justify-center items-center">
       <p className="text-gray-500 w-3/4">{props.comment}</p>
       <p className="mt-8 text-gray-400">- {props.name}</p>
     </div>

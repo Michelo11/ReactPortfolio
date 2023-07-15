@@ -17,7 +17,7 @@ const SocialCard = function SocialCard({
   link: string;
 }) {
   return (
-    <Link href={link} className="card gap-2 w-full md:w-3/5 xl:w-1/4 p-4">
+    <Link href={link} className="custom-card gap-2 w-full md:w-3/5 xl:w-1/4 p-4">
       <FontAwesomeIcon
         icon={icon}
         className="text-4xl text-primary my-auto"
