@@ -1,27 +1,25 @@
-"use client";
-
 import Link from "next/link";
 
-export default function Navbar() {
+export const Navbar = function Navbar() {
   return (
-    <nav className="bg-slate-700/30 p-6 flex justify-between rounded-xl">
+    <nav className="bg-slate-700/30 p-6 flex justify-center md:justify-between rounded-xl z-10">
       <Link className="text-white uppercase" href="/">
         Michele
       </Link>
-      <div className="flex gap-4 text-gray-500">
-        <Link className="uppercase" href="/about">
+      <div className="hidden md:flex gap-4 text-gray-400">
+        <Link className="uppercase" href="/">
           About
         </Link>
-        <Link className="uppercase" href="/about">
+        <Link className="uppercase" href="/">
           Skills
         </Link>
-        <Link className="uppercase" href="/about">
+        <Link className="uppercase" href="/">
           Services
         </Link>
-        <Link className="uppercase" href="/about">
+        <Link className="uppercase" href="/">
           Contact
         </Link>
       </div>
     </nav>
   );
-}
+};

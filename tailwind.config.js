@@ -11,6 +11,10 @@ module.exports = {
         primary: "#225bdd",
         background: "#1c2230",
       },
+      backgroundImage: {
+        texture: "url('/img/background-texture.svg')",
+        points: "url('/img/points.svg')",
+      },
     },
   },
   plugins: [],
