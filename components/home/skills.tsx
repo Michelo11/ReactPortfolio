@@ -99,7 +99,7 @@ const SkillButton = function SkillButton(
 
 export const SkillItem = function SkillItem(props: Skill) {
   return (
-    <div className="flex flex-col gap-4 md:w-2/6 mt-4 md:mt-0">
+    <div className="flex flex-col gap-4 w-full md:w-3/6 xl:w-2/6 mt-4 xl:mt-0">
       {Object.keys(props.skills).map((skill) => (
         <div key={skill}>
           <span className="text-gray-400">{skill}</span>
@@ -122,7 +122,7 @@ export const Skills = function Skills() {
 
   return (
     <Section name="My Skills" id={2}>
-      <div className="flex flex-col md:flex-row justify-between md:w-2/5">
+      <div className="flex flex-col md:flex-row justify-between items-center md:w-3/4 xl:w-2/5">
         <div className="flex flex-col gap-4">
           {skills.map((skill) => (
             <SkillButton

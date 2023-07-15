@@ -5,7 +5,7 @@ export const InstantQuote = function InstantQuote() {
         <h1 className="uppercase font-extrabold text-3xl">
           Get an instant quote!
         </h1>
-        <p className="text-gray-400 text-lg">
+        <p className="text-gray-400 text-lg md:text-sm xl:text-lg">
           Interested in working together on your project?
           <br />
           Get a rough quote with my online quote calculator!

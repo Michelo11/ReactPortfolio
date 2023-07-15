@@ -40,30 +40,32 @@ export const Hero = function Hero() {
         designing and administrating systems.
       </p>
       <button className="mt-10 button w-48 h-14">LEARN MORE</button>
-      <Image
-        placeholder="empty"
-        src="/img/angle.svg"
-        className="select-none opacity-10 mt-14"
-        alt="angle"
-        width={120}
-        height={200}
-      />
-      <Image
-        placeholder="empty"
-        src="/img/angle.svg"
-        className="select-none -mt-4 opacity-50"
-        alt="angle"
-        width={120}
-        height={200}
-      />
-      <Image
-        placeholder="empty"
-        src="/img/angle.svg"
-        className="select-none -mt-4"
-        alt="angle"
-        width={120}
-        height={200}
-      />
+      <div className="animate-bounce">
+        <Image
+          placeholder="empty"
+          src="/img/angle.svg"
+          className="select-none opacity-10 mt-14"
+          alt="angle"
+          width={120}
+          height={200}
+        />
+        <Image
+          placeholder="empty"
+          src="/img/angle.svg"
+          className="select-none opacity-50"
+          alt="angle"
+          width={120}
+          height={200}
+        />
+        <Image
+          placeholder="empty"
+          src="/img/angle.svg"
+          className="select-none"
+          alt="angle"
+          width={120}
+          height={200}
+        />
+      </div>
     </div>
   );
 };

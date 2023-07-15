@@ -3,6 +3,7 @@ import { Section } from "./section";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 const SocialCard = function SocialCard({
   content,
@@ -16,7 +17,7 @@ const SocialCard = function SocialCard({
   link: string;
 }) {
   return (
-    <div className="card gap-2 w-full md:w-1/4 p-4">
+    <Link href={link} className="card gap-2 w-full md:w-3/5 xl:w-1/4 p-4">
       <FontAwesomeIcon
         icon={icon}
         className="text-4xl text-primary my-auto"
@@ -26,7 +27,7 @@ const SocialCard = function SocialCard({
         <p>{content}</p>
         <p className="uppercase text-sm text-gray-500">{social}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

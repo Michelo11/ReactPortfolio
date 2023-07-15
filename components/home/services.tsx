@@ -47,7 +47,7 @@ const ServiceCard = function ServiceCard(
   return (
     <div
       className={
-        "card px-10 py-6 w-full gap-8 md:h-52 " + (props.alt ? "md:ml-20" : "")
+        "card px-10 py-6 w-full gap-8 xl:h-52 " + (props.alt ? "md:ml-20" : "")
       }
     >
       <FontAwesomeIcon
@@ -78,7 +78,7 @@ export const Services = function Services() {
         draggable={false}
       />
 
-      <div className="flex flex-col gap-8 mx-2 md:mx-0 md:w-2/5">
+      <div className="flex flex-col gap-8 mx-2 md:mx-0 md:w-3/5 xl:w-2/5">
         {services.map((service, index) => (
           <ServiceCard key={service.id} {...service} alt={index % 2 !== 0} />
         ))}
