@@ -14,6 +14,10 @@
   .custom-button {
     @apply font-bold rounded-xl bg-primary shadow-lg shadow-primary/50 p-4 flex text-center items-center justify-center;
   }
+
+  .input-card {
+    @apply custom-card flex-col md:flex-row gap-2 w-full p-6 items-center justify-between;
+  }
 }
 
 * {
