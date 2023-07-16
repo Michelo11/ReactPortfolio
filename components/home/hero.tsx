@@ -4,15 +4,6 @@ export const Hero = function Hero() {
   return (
     <div className="flex flex-col gap-4 items-center mt-10 bg-texture bg-repeat pb-8">
       <Image
-        className="absolute -left-64 -top-32 w-[700px] -z-10 select-none"
-        src="/img/pink-blur.svg"
-        alt="blur"
-        width={100}
-        height={100}
-        placeholder="empty"
-        draggable={false}
-      />
-      <Image
         src="/img/blue-blur.svg"
         alt="blue blur"
         className="absolute w-[500px] -z-10 select-none"
