@@ -18,6 +18,10 @@
   .input-card {
     @apply custom-card flex-col md:flex-row gap-2 w-full p-6 items-center justify-between;
   }
+
+  .horizontal-rule {
+    @apply w-full border-b-2 border-slate-700/30 my-4;
+  }
 }
 
 * {

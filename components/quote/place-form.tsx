@@ -1,8 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { BaseForm } from "./base-form";
+import type { Database } from "@/types/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
+import { BaseForm } from "./base-form";
 
 export const PlaceQuoteForm = function PlaceQuoteForm({
   service,
@@ -13,7 +14,7 @@ export const PlaceQuoteForm = function PlaceQuoteForm({
   pages: number;
   timeframe: number;
 }) {
-  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
   const [description, setDescription] = useState("N/A");
   const [references, setReferences] = useState("N/A");
 
@@ -53,8 +54,18 @@ export const PlaceQuoteForm = function PlaceQuoteForm({
         price: -1,
         button: {
           text: "Place Order",
-          onClick: () => {
-            router.push("/quote/place/success");
+          onClick: async () => {
+            try {
+              supabase
+                .from("chat")
+                .insert({})
+                .throwOnError()
+                .then((res) => {
+                  console.log(res);
+                });
+            } catch (err) {
+              console.error(err);
+            }
           },
         },
       }}

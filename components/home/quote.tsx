@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const InstantQuote = function InstantQuote() {
   return (
     <div className="w-full md:h-32 from-[#1d3977] p-3 to-[#554a71] bg-gradient-to-r rounded-xl">
@@ -10,9 +12,12 @@ export const InstantQuote = function InstantQuote() {
           <br />
           Get a rough quote with my online quote calculator!
         </p>
-        <button className="uppercase from-[#42426f] to-[#514770] bg-gradient-to-r p-4 px-8 font-bold rounded-xl">
+        <Link
+          href="/quote"
+          className="uppercase from-[#42426f] to-[#514770] bg-gradient-to-r p-4 px-8 font-bold text-center rounded-xl"
+        >
           Click for a quote!
-        </button>
+        </Link>
       </div>
     </div>
   );

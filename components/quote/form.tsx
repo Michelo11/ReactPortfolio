@@ -63,7 +63,7 @@ export const QuoteForm = function QuoteForm() {
         ],
         price: price,
         button: {
-          text: "Place Order",
+          text: "Continue",
           onClick: () => {
             router.push(
               `/quote/place?service=${service}&pages=${pages}&timeframe=${timeframe}`,
