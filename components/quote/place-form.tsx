@@ -4,6 +4,7 @@ import type { Database } from "@/types/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { BaseForm } from "./base-form";
+import { useRouter } from "next/navigation";
 
 export const PlaceQuoteForm = function PlaceQuoteForm({
   service,
@@ -15,6 +16,7 @@ export const PlaceQuoteForm = function PlaceQuoteForm({
   timeframe: number;
 }) {
   const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
   const [description, setDescription] = useState("N/A");
   const [references, setReferences] = useState("N/A");
 
@@ -54,14 +56,30 @@ export const PlaceQuoteForm = function PlaceQuoteForm({
         price: -1,
         button: {
           text: "Place Order",
+          description:
+            'By clicking "Place Order", you\'ll start a chat with me to get a real quote.',
           onClick: async () => {
             try {
               supabase
                 .from("chat")
                 .insert({})
+                .select()
                 .throwOnError()
-                .then((res) => {
-                  console.log(res);
+                .then(async (res) => {
+                  if (res.data && res.data[0].id) {
+                    supabase
+                      .from("chat_messages")
+                      .insert({
+                        chat: res.data[0].id,
+                        content: `I'd like to order a ${service} project with ${pages} pages in ${
+                          timeframe / 7
+                        } weeks. ${description}. References: ${references}`,
+                      })
+                      .then((r) => {
+                        console.log(r);
+                        router.push(`/chat/${res.data[0].id}`);
+                      });
+                  }
                 });
             } catch (err) {
               console.error(err);

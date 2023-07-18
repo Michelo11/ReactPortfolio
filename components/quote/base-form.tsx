@@ -20,6 +20,7 @@ export type DisplayProps = {
   price: number;
   button: {
     text: string;
+    description?: string;
     onClick: () => void;
   };
 };
@@ -94,6 +95,11 @@ export const BaseForm = function BaseForm({ inputs, display }: FormProps) {
             <h1 className="text-primary text-4xl text-center font-light">
               €{display.price}
             </h1>
+          )}
+          {display.button.description && (
+            <p className="text-gray-500 text-center text-sm">
+              {display.button.description}
+            </p>
           )}
           <button onClick={display.button.onClick} className="custom-button">
             {display.button.text}

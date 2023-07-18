@@ -26,7 +26,7 @@ export interface Database {
           {
             foreignKeyName: "chat_owner_fkey"
             columns: ["owner"]
-            referencedRelation: "profiles"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
@@ -44,7 +44,7 @@ export interface Database {
           content: string
           created_at?: string | null
           id?: number
-          owner: string
+          owner?: string
         }
         Update: {
           chat?: number
@@ -63,40 +63,6 @@ export interface Database {
           {
             foreignKeyName: "chat_messages_owner_fkey"
             columns: ["owner"]
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          full_name: string | null
-          id: string
-          updated_at: string | null
-          username: string | null
-          website: string | null
-        }
-        Insert: {
-          avatar_url?: string | null
-          full_name?: string | null
-          id: string
-          updated_at?: string | null
-          username?: string | null
-          website?: string | null
-        }
-        Update: {
-          avatar_url?: string | null
-          full_name?: string | null
-          id?: string
-          updated_at?: string | null
-          username?: string | null
-          website?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }

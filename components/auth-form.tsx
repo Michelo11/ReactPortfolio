@@ -3,13 +3,17 @@
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { Database } from "../types/supabase";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
+  const query = useSearchParams();
+
+  const next = query.get("next") || "/";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>("");
@@ -46,7 +50,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
           return;
         }
 
-        router.push("/");
+        router.push(next);
       }}
       className="custom-card flex-col items-center gap-4 justify-center p-4 mt-10 w-1/3"
     >
@@ -68,7 +72,12 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
         <button
           type="button"
           onClick={() => {
-            supabase.auth.signInWithOAuth({ provider: "github" });
+            supabase.auth.signInWithOAuth({
+              provider: "github",
+              options: {
+                redirectTo: next,
+              },
+            });
           }}
           className="custom-button py-2 w-full gap-2"
         >
@@ -92,7 +101,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit" className="custom-button py-2 w-full">
-        Login
+        {mode === "login" ? "Login" : "Register"}
       </button>
     </form>
   );
