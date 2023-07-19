@@ -103,6 +103,7 @@ export interface Database {
         Row: {
           complete: boolean
           created_at: string
+          deadline: string | null
           id: number
           owner: string
           value: number
@@ -110,6 +111,7 @@ export interface Database {
         Insert: {
           complete?: boolean
           created_at?: string
+          deadline?: string | null
           id?: number
           owner: string
           value?: number
@@ -117,6 +119,7 @@ export interface Database {
         Update: {
           complete?: boolean
           created_at?: string
+          deadline?: string | null
           id?: number
           owner?: string
           value?: number
