@@ -1,6 +1,12 @@
-import moment from "moment";
+"use client";
 
-function dateString(date: string) {
+import type { Database } from "@/types/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import moment from "moment";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+function dateString(date: Date) {
   const today = moment().endOf("day");
   const tomorrow = moment().add(1, "day").endOf("day");
 
@@ -19,15 +25,34 @@ function dateString(date: string) {
 
 export default function ChatBubble({
   message,
+  attachments,
   self,
   date,
 }: {
   message: string;
+  attachments: string[];
   self: boolean;
-  date: string | undefined;
+  date: Date | null;
 }) {
+  const supabase = createClientComponentClient<Database>();
+  const [attachmentUrls, setAttachmentUrls] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (attachments.length > 0) {
+      const urls: string[] = [];
+      for (const attachment of attachments) {
+        urls.push(
+          supabase.storage.from("uploads").getPublicUrl(attachment).data
+            .publicUrl,
+        );
+      }
+
+      setAttachmentUrls(urls);
+    }
+  }, [attachments, supabase]);
+
   return (
-    <div className="w-full">
+    <div className="w-full last-of-type:pb-12">
       {date && (
         <div
           className={
@@ -45,9 +70,26 @@ export default function ChatBubble({
       >
         <div
           className={
-            "chat-bubble " + (self ? "chat-bubble-primary" : "bg-slate-700/30")
+            "bg-[#1d283a] rounded-xl p-2 " +
+            (self ? "!bg-primary" : "bg-slate-700/30")
           }
         >
+          <div className="flex flex-wrap gap-2">
+            {attachmentUrls.map((url) => (
+              <div
+                key={url}
+                className="relative w-32 h-32 rounded-xl overflow-hidden"
+              >
+                <Image
+                  src={url}
+                  layout="fill"
+                  objectFit="cover"
+                  alt="Attachment"
+                />
+              </div>
+            ))}
+          </div>
+
           {message}
         </div>
       </div>

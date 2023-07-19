@@ -122,7 +122,7 @@ export const Skills = function Skills() {
 
   return (
     <Section name="My Skills" id={2}>
-      <div className="flex flex-col md:flex-row justify-between items-center md:w-3/4 xl:w-2/5">
+      <div className="flex flex-col md:flex-row justify-between items-center md:w-3/4 2xl:w-2/5">
         <div className="flex flex-col gap-4">
           {skills.map((skill) => (
             <SkillButton

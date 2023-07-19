@@ -1,17 +1,17 @@
 "use client";
 
 import ChatBubble from "@/components/chat/bubble";
+import ChatInput from "@/components/chat/input";
 import type { Database } from "@/types/supabase";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export type Message = {
+  attachments: string[];
   chat: number;
   content: string;
-  created_at: string;
+  created_at: Date;
   id: number;
   owner: string;
 };
@@ -23,7 +23,6 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [userId, setUserId] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
-  const [input, setInput] = useState<string>("");
 
   useEffect(() => {
     supabase.auth.getUser().then((res) => {
@@ -58,12 +57,23 @@ export default function ChatPage() {
             (payload) => {
               switch (payload.eventType) {
                 case "INSERT":
-                  setMessages((messages: any) => [...messages, payload.new]);
+                  setMessages((messages: any) => [
+                    ...messages,
+                    {
+                      ...payload.new,
+                      created_at: new Date(payload.new.created_at),
+                    },
+                  ]);
                   break;
                 case "UPDATE":
                   setMessages((messages: any) =>
                     messages.map((message: any) =>
-                      message.id === payload.new.id ? payload.new : message,
+                      message.id === payload.new.id
+                        ? {
+                            ...payload.new,
+                            created_at: new Date(payload.new.created_at),
+                          }
+                        : message,
                     ),
                   );
                   break;
@@ -90,65 +100,41 @@ export default function ChatPage() {
               return;
             }
 
-            setMessages(res.data);
+            setMessages(
+              res.data.map((message) => ({
+                ...message,
+                created_at: new Date(message.created_at),
+              })),
+            );
           });
       });
   }, [id, supabase]);
 
-  const handleSubmit = () => {
-    if (!input) return;
-
-    supabase
-      .from("chat_messages")
-      .insert({
-        chat: Number(id),
-        content: input,
-      })
-      .then(() => {});
-
-    setInput("");
-  };
-
   return (
     <div className="w-full flex flex-col h-full gap-2">
-      {messages?.map((message: any, index: number) => {
-        const showDate =
-          index === 0 ||
-          new Date(message.created_at).getTime() -
-            new Date(messages[index - 1].created_at).getTime() >
-            5 * 60 * 1000;
+      {messages
+        ?.sort((a, b) => {
+          return a.created_at.getTime() - b.created_at.getTime();
+        })
+        .map((message: Message, index: number) => {
+          const showDate =
+            index === 0 ||
+            message.created_at.getTime() -
+              messages[index - 1].created_at.getTime() >
+              5 * 60 * 1000;
 
-        return (
-          <ChatBubble
-            key={message.id}
-            message={message.content}
-            date={showDate ? message.created_at : null}
-            self={message.owner === userId}
-          />
-        );
-      })}
+          return (
+            <ChatBubble
+              key={message.id}
+              message={message.content}
+              attachments={message.attachments}
+              date={showDate ? message.created_at : null}
+              self={message.owner === userId}
+            />
+          );
+        })}
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-        className="fixed bottom-20 left-0 w-screen px-10 md:px-24 flex items-center"
-      >
-        <input
-          type="text"
-          placeholder="Message"
-          className="input bg-[#313a4e] appearance-none h-12 w-full p-2 rounded-r-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="btn btn-primary w-12 h-12 rounded-l-none"
-        >
-          <FontAwesomeIcon icon={faPaperPlane} size="xl" />
-        </button>
-      </form>
+      <ChatInput chatId={Number(id)} userId={userId} />
     </div>
   );
 }

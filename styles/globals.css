@@ -8,7 +8,7 @@
   }
 
   .custom-mini-card {
-    @apply hover:card flex gap-4 items-center justify-start transition-all ease-in-out duration-200 py-2 px-4;
+    @apply hover:custom-card flex gap-4 items-center justify-start transition-all ease-in-out duration-200 py-2 px-4;
   }
 
   .custom-button {
