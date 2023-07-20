@@ -7,13 +7,9 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export type Message = {
-  attachments: string[];
-  chat: number;
-  content: string;
+type OriginalMessage = Database["public"]["Tables"]["chat_messages"]["Row"];
+export type Message = Omit<OriginalMessage, "created_at"> & {
   created_at: Date;
-  id: number;
-  owner: string;
 };
 
 export default function ChatPage() {
@@ -36,8 +32,6 @@ export default function ChatPage() {
       .select("*")
       .eq("id", Number(id))
       .then((res) => {
-        console.log(res);
-
         if (res.error || !res.data || res.data.length === 0) {
           setError(true);
           console.log(res.error);
@@ -101,7 +95,7 @@ export default function ChatPage() {
             }
 
             setMessages(
-              res.data.map((message) => ({
+              res.data.map((message: OriginalMessage) => ({
                 ...message,
                 created_at: new Date(message.created_at),
               })),
