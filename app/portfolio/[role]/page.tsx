@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function PortfolioPage() {
-  const [project, setProject] = useState<string | null>("");
+  const [project, setProject] = useState<string | null>(null);
 
   return (
     <div className="w-full">
@@ -23,7 +23,7 @@ export default function PortfolioPage() {
           View my past works
         </h1>
         <h2 className="text-gray-400 text-center">
-          Get inspired and don't believe just to my words, see what I already
+          Get inspired and don&apos;t believe just to my words, see what I already
           did for other clients!
         </h2>
       </div>

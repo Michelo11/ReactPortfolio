@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRef } from "react";
 
 export default function Carousel({ close }: { close: () => void }) {
@@ -17,7 +18,13 @@ export default function Carousel({ close }: { close: () => void }) {
     >
       <div ref={ref} className="carousel w-1/2 h-1/2 m-auto">
         <div id="slide1" className="carousel-item relative w-full">
-          <img src="/img/placeholder.png" className="w-full" />
+          <Image
+            src="/img/placeholder.png"
+            width={100}
+            height={100}
+            alt="placeholder"
+            className="w-full"
+          />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide4" className="btn btn-circle">
               ❮
@@ -28,7 +35,13 @@ export default function Carousel({ close }: { close: () => void }) {
           </div>
         </div>
         <div id="slide2" className="carousel-item relative w-full">
-          <img src="/img/placeholder.png" className="w-full" />
+          <Image
+            src="/img/placeholder.png"
+            width={100}
+            height={100}
+            alt="placeholder"
+            className="w-full"
+          />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide1" className="btn btn-circle">
               ❮
@@ -39,7 +52,13 @@ export default function Carousel({ close }: { close: () => void }) {
           </div>
         </div>
         <div id="slide3" className="carousel-item relative w-full">
-          <img src="/img/placeholder.png" className="w-full" />
+          <Image
+            src="/img/placeholder.png"
+            width={100}
+            height={100}
+            alt="placeholder"
+            className="w-full"
+          />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide2" className="btn btn-circle">
               ❮
@@ -50,7 +69,13 @@ export default function Carousel({ close }: { close: () => void }) {
           </div>
         </div>
         <div id="slide4" className="carousel-item relative w-full">
-          <img src="/img/placeholder.png" className="w-full" />
+          <Image
+            src="/img/placeholder.png"
+            width={100}
+            height={100}
+            alt="placeholder"
+            className="w-full"
+          />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide3" className="btn btn-circle">
               ❮
