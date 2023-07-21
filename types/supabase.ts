@@ -205,7 +205,7 @@ export interface Database {
           full_name: string | null;
           id: string;
           notification_token: string | null;
-          order_notification: boolean;
+          reviews_notification: boolean;
           updated_at: string | null;
         };
         Insert: {
@@ -215,7 +215,7 @@ export interface Database {
           full_name?: string | null;
           id: string;
           notification_token?: string | null;
-          order_notification?: boolean;
+          reviews_notification?: boolean;
           updated_at?: string | null;
         };
         Update: {
@@ -225,7 +225,7 @@ export interface Database {
           full_name?: string | null;
           id?: string;
           notification_token?: string | null;
-          order_notification?: boolean;
+          reviews_notification?: boolean;
           updated_at?: string | null;
         };
         Relationships: [
@@ -236,6 +236,30 @@ export interface Database {
             referencedColumns: ["id"];
           },
         ];
+      };
+      reviews: {
+        Row: {
+          code: string | null;
+          comment: string | null;
+          id: number;
+          name: string | null;
+          rating: number | null;
+        };
+        Insert: {
+          code?: string | null;
+          comment?: string | null;
+          id?: number;
+          name?: string | null;
+          rating?: number | null;
+        };
+        Update: {
+          code?: string | null;
+          comment?: string | null;
+          id?: number;
+          name?: string | null;
+          rating?: number | null;
+        };
+        Relationships: [];
       };
     };
     Views: {

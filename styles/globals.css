@@ -22,10 +22,29 @@
   .horizontal-rule {
     @apply w-full border-b-2 border-slate-700/30 my-4;
   }
+
+  .w-absolute {
+    width: calc(100% - 5rem);
+    left: 2.5rem;
+  }
+
+  .w-absolute-md {
+    width: calc(100% - 12rem);
+    left: 6rem;
+  }
 }
 
 * {
   scroll-behavior: smooth;
+  --contexify-menu-bgColor: #222c3d;
+  --contexify-separator-color: #4c4c4c;
+  --contexify-item-color: #fff;
+  --contexify-activeItem-color: #fff;
+  --contexify-activeItem-bgColor: #225bdd;
+  --contexify-rightSlot-color: #6f6e77;
+  --contexify-activeRightSlot-color: #fff;
+  --contexify-arrow-color: #6f6e77;
+  --contexify-activeArrow-color: #fff;
 }
 
 body {

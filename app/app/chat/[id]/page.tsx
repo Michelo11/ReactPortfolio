@@ -8,17 +8,25 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type OriginalMessage = Database["public"]["Tables"]["chat_messages"]["Row"];
-export type Message = Omit<OriginalMessage, "created_at"> & {
+export type Message = Omit<Omit<OriginalMessage, "created_at">, "reply"> & {
   created_at: Date;
+  reply?: {
+    id: number;
+    content: string;
+  };
 };
 
 export default function ChatPage() {
   const supabase = createClientComponentClient<Database>();
   const { id } = useParams();
 
-  const [messages, setMessages] = useState<Message[] | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [userId, setUserId] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const [reply, setReply] = useState<{
+    id: number;
+    content: string;
+  } | null>(null);
 
   useEffect(() => {
     supabase.auth.getUser().then((res) => {
@@ -28,13 +36,13 @@ export default function ChatPage() {
     });
 
     supabase
-      .from("chat")
-      .select("*")
+      .from("chats")
+      .select("*, profiles (full_name, avatar_url), chat_messages (*)")
       .eq("id", Number(id))
+      .single()
       .then((res) => {
-        if (res.error || !res.data || res.data.length === 0) {
+        if (res.error || !res.data) {
           setError(true);
-          console.log(res.error);
           return;
         }
 
@@ -46,30 +54,49 @@ export default function ChatPage() {
               event: "*",
               schema: "public",
               table: "chat_messages",
-              filter: `chat=eq.${res.data[0].id}`,
+              filter: `chat=eq.${res.data.id}`,
             },
             (payload) => {
               switch (payload.eventType) {
                 case "INSERT":
-                  setMessages((messages: any) => [
-                    ...messages,
-                    {
-                      ...payload.new,
-                      created_at: new Date(payload.new.created_at),
-                    },
-                  ]);
+                  setMessages((messages: any) => {
+                    if (payload.new.reply) {
+                      const reply = messages.find(
+                        (m: any) => m.id === payload.new.reply,
+                      );
+
+                      payload.new.reply = reply
+                        ? {
+                            id: reply.id,
+                            content: reply.content,
+                          }
+                        : undefined;
+                    }
+
+                    return [...messages, payload.new];
+                  });
+
                   break;
                 case "UPDATE":
+                  if (payload.new.reply) {
+                    const reply = messages.find(
+                      (m: any) => m.id === payload.new.reply,
+                    );
+
+                    payload.new.reply = reply
+                      ? {
+                          id: reply.id,
+                          content: reply.content,
+                        }
+                      : undefined;
+                  }
+
                   setMessages((messages: any) =>
                     messages.map((message: any) =>
-                      message.id === payload.new.id
-                        ? {
-                            ...payload.new,
-                            created_at: new Date(payload.new.created_at),
-                          }
-                        : message,
+                      message.id === payload.new.id ? payload.new : message,
                     ),
                   );
+
                   break;
                 case "DELETE":
                   setMessages((messages: any) =>
@@ -83,25 +110,40 @@ export default function ChatPage() {
           )
           .subscribe();
 
-        supabase
-          .from("chat_messages")
-          .select("*")
-          .eq("chat", Number(id))
-          .then((res) => {
-            if (res.error || !res.data) {
-              setError(true);
-              console.log(res.error);
-              return;
-            }
+        const newMessages = res.data.chat_messages
+          .sort(
+            (a, b) =>
+              new Date(a.created_at).getTime() -
+              new Date(b.created_at).getTime(),
+          )
+          .map((message) => {
+            if (message.reply) {
+              const reply = res.data.chat_messages.find(
+                (m: any) => m.id === message.reply,
+              );
 
-            setMessages(
-              res.data.map((message: OriginalMessage) => ({
+              return {
                 ...message,
                 created_at: new Date(message.created_at),
-              })),
-            );
+                reply: reply
+                  ? {
+                      id: reply.id,
+                      content: reply.content,
+                    }
+                  : undefined,
+              };
+            }
+
+            return {
+              ...message,
+              created_at: new Date(message.created_at),
+              reply: undefined,
+            };
           });
+
+        setMessages(newMessages);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, supabase]);
 
   return (
@@ -120,15 +162,23 @@ export default function ChatPage() {
           return (
             <ChatBubble
               key={message.id}
+              id={message.id}
               message={message.content}
               attachments={message.attachments}
               date={showDate ? message.created_at : null}
               self={message.owner === userId}
+              reply={message.reply}
+              setReply={() => setReply(message)}
             />
           );
         })}
 
-      <ChatInput chatId={Number(id)} userId={userId} />
+      <ChatInput
+        chatId={Number(id)}
+        userId={userId}
+        reply={reply}
+        resetReply={() => setReply(null)}
+      />
     </div>
   );
 }

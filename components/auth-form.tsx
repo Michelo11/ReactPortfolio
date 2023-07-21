@@ -51,7 +51,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
           return;
         }
 
-        router.push(next);
+        router.push(decodeURIComponent(next));
       }}
       className="custom-card flex-col items-center gap-4 justify-center p-4 mt-10 md:w-1/3"
     >
@@ -76,7 +76,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
             supabase.auth.signInWithOAuth({
               provider: "github",
               options: {
-                redirectTo: next,
+                redirectTo: decodeURIComponent(next),
               },
             });
           }}

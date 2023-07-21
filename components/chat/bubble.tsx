@@ -1,10 +1,14 @@
 "use client";
 
 import type { Database } from "@/types/supabase";
+import { faReply, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import moment from "moment";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Item, Menu, useContextMenu } from "react-contexify";
+import "react-contexify/ReactContexify.css";
 
 function dateString(date: Date) {
   const today = moment().endOf("day");
@@ -24,18 +28,41 @@ function dateString(date: Date) {
 }
 
 export default function ChatBubble({
+  id,
   message,
   attachments,
   self,
   date,
+  reply,
+  setReply,
 }: {
+  id: number;
   message: string;
   attachments: string[];
   self: boolean;
   date: Date | null;
+  reply:
+    | {
+        id: number;
+        content: string;
+      }
+    | undefined;
+  setReply: () => void;
 }) {
   const supabase = createClientComponentClient<Database>();
   const [attachmentUrls, setAttachmentUrls] = useState<string[]>([]);
+  const { show } = useContextMenu({
+    id: `chat-bubble-${id}`,
+  });
+
+  function handleContextMenu(event: React.MouseEvent<HTMLDivElement>) {
+    show({
+      event,
+      props: {
+        key: "value",
+      },
+    });
+  }
 
   useEffect(() => {
     if (attachments.length > 0) {
@@ -64,6 +91,7 @@ export default function ChatBubble({
       )}
 
       <div
+        onContextMenu={handleContextMenu}
         className={
           "w-fit max-w-md " + (self ? "ml-auto chat-end" : "chat-start")
         }
@@ -90,9 +118,37 @@ export default function ChatBubble({
             ))}
           </div>
 
+          {reply && (
+            <div className="text-sm italic font-light">
+              <FontAwesomeIcon icon={faReply} className="mr-2" />
+              {reply.content}
+            </div>
+          )}
           {message}
         </div>
       </div>
+
+      <Menu id={`chat-bubble-${id}`}>
+        <Item id="reply" onClick={setReply}>
+          <FontAwesomeIcon icon={faReply} className="mr-2" />
+          Reply
+        </Item>
+        {self && (
+          <Item
+            id="delete"
+            onClick={() => {
+              supabase
+                .from("chat_messages")
+                .delete()
+                .eq("id", id)
+                .then(() => {});
+            }}
+          >
+            <FontAwesomeIcon icon={faTrash} className="mr-2" />
+            Delete
+          </Item>
+        )}
+      </Menu>
     </div>
   );
 }

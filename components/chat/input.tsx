@@ -1,7 +1,11 @@
 "use client";
 
 import type { Database } from "@/types/supabase";
-import { faFile, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFile,
+  faPaperPlane,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRef, useState } from "react";
@@ -9,9 +13,16 @@ import { useRef, useState } from "react";
 export default function ChatInput({
   chatId,
   userId,
+  reply,
+  resetReply,
 }: {
   chatId: number;
   userId: string;
+  reply: {
+    id: number;
+    content: string;
+  } | null;
+  resetReply: () => void;
 }) {
   const supabase = createClientComponentClient<Database>();
   const [input, setInput] = useState<string>("");
@@ -51,10 +62,12 @@ export default function ChatInput({
         chat: chatId,
         content: input,
         attachments: attachmentUrls,
+        reply: reply?.id || null,
       })
       .then(() => {});
 
     setInput("");
+    resetReply();
   };
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +83,7 @@ export default function ChatInput({
         e.preventDefault();
         handleSubmit();
       }}
-      className="static bottom-20 left-0 w-full"
+      className="absolute w-absolute md:w-absolute-md bottom-36 md:bottom-20"
     >
       {attachments.length > 0 && (
         <div className="flex items-center justify-between">
@@ -91,6 +104,21 @@ export default function ChatInput({
           </button>
         </div>
       )}
+      {reply && (
+        <div className="flex items-center justify-between">
+          <div className="flex items-center bg-[#313a4e] appearance-none h-12 w-full p-2 rounded-xl rounded-b-none rounded-r-none">
+            <p className="text-gray-400 mr-2">Reply to:</p>
+            {reply.content}
+          </div>
+          <button
+            type="button"
+            onClick={() => resetReply()}
+            className="btn btn-primary w-12 h-12 rounded-l-none rounded-b-none"
+          >
+            <FontAwesomeIcon icon={faXmark} size={"xl"} />
+          </button>
+        </div>
+      )}
 
       <div className="flex items-center relative">
         <input
@@ -98,7 +126,7 @@ export default function ChatInput({
           placeholder="Message"
           className={
             "input bg-[#313a4e] appearance-none h-12 w-full p-2 rounded-r-none " +
-            (attachments.length > 0 ? "rounded-t-none" : "")
+            (attachments.length > 0 || reply ? "rounded-t-none" : "")
           }
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -123,7 +151,10 @@ export default function ChatInput({
         />
         <button
           type="submit"
-          className={"btn btn-primary w-12 h-12 rounded-l-none " + (attachments.length > 0 ? "rounded-t-none" : "")}
+          className={
+            "btn btn-primary w-12 h-12 rounded-l-none " +
+            (attachments.length > 0 || reply ? "rounded-t-none" : "")
+          }
         >
           <FontAwesomeIcon icon={faPaperPlane} size="xl" />
         </button>

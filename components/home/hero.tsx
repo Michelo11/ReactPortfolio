@@ -31,7 +31,7 @@ export const Hero = function Hero() {
         designing and administrating systems.
       </p>
       <button className="mt-10 custom-button w-48 h-14">LEARN MORE</button>
-      <div className="animate-bounce">
+      <a href="#about" className="animate-bounce">
         <Image
           placeholder="empty"
           src="/img/angle.svg"
@@ -56,7 +56,7 @@ export const Hero = function Hero() {
           width={120}
           height={200}
         />
-      </div>
+      </a>
     </div>
   );
 };

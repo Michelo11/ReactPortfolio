@@ -61,7 +61,7 @@ export const PlaceQuoteForm = function PlaceQuoteForm({
           onClick: async () => {
             try {
               supabase
-                .from("chat")
+                .from("chats")
                 .insert({})
                 .select()
                 .throwOnError()

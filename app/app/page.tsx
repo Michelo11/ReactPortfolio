@@ -58,9 +58,24 @@ export default function AppPage() {
               <p className="text-lg">Price: €{order.value}</p>
               <p className="text-lg">Invoices: {order.invoices.length || 0}</p>
             </div>
-            <Link href={"/app/chat/" + 0} className="mt-auto custom-button">
-              Open chat
-            </Link>
+            {!order.complete && (
+              <Link
+                href={"/app/chat/" + order.chat}
+                className="mt-auto custom-button"
+              >
+                Open chat
+              </Link>
+            )}
+            {order.complete && (
+              <button
+                className="mt-auto custom-button"
+                onClick={() => {
+                  // todo
+                }}
+              >
+                Download assets
+              </button>
+            )}
           </div>
         ))}
       </div>
