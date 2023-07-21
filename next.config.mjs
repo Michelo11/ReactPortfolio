@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["ghqiylcgqhnksizktvmf.supabase.co"],
+    domains: ["ghqiylcgqhnksizktvmf.supabase.co", "ui-avatars.com"],
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports

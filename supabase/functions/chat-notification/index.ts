@@ -1,30 +1,15 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.26.0";
-import type { Database } from "./types.ts";
-
-type InsertPayload = {
-  type: "INSERT";
-  table: string;
-  schema: string;
-  record: Database["public"]["Tables"]["chat_messages"]["Row"];
-  old_record: null;
-};
+import { supabase } from "../_utils/supabase.ts";
+import type { Database } from "../_utils/types.ts";
+import type { InsertPayload } from "../_utils/webhooks.types.ts";
 
 serve(async (req: Request) => {
   try {
-    const body: InsertPayload = await req.json();
+    const body: InsertPayload<
+      Database["public"]["Tables"]["chat_messages"]["Row"]
+    > = await req.json();
 
-    const supabaseClient = createClient<Database>(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-      {
-        global: {
-          headers: { Authorization: req.headers.get("Authorization")! },
-        },
-      },
-    );
-
-    const { data } = await supabaseClient
+    const { data } = await supabase
       .from("admins")
       .select("profiles (id, notification_token)");
 
@@ -40,7 +25,7 @@ serve(async (req: Request) => {
       throw new Error("No tokens found");
     }
 
-    const { data: userData } = await supabaseClient
+    const { data: userData } = await supabase
       .from("profiles")
       .select("full_name")
       .eq("id", body.record.owner)

@@ -77,7 +77,7 @@ export const PlaceQuoteForm = function PlaceQuoteForm({
                       })
                       .then((r) => {
                         console.log(r);
-                        router.push(`/chat/${res.data[0].id}`);
+                        router.push(`/app/chat/${res.data[0].id}`);
                       });
                   }
                 });

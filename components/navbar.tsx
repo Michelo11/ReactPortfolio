@@ -1,12 +1,53 @@
+"use client";
+
+import type { Database } from "@/types/supabase";
+import {
+  faArrowRightFromBracket,
+  faGears,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export const Navbar = function Navbar() {
+  const supabase = createClientComponentClient<Database>();
+
+  const [user, setUser] = useState<
+    null | Database["public"]["Tables"]["profiles"]["Row"]
+  >(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
+      if (!session || !session.user) {
+        setUser(null);
+        return;
+      }
+
+      supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single()
+        .then(({ data }) => {
+          setUser(data);
+        });
+    });
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, [supabase]);
+
   return (
-    <nav className="bg-slate-700/30 mt-12 p-6 flex justify-center md:justify-between rounded-xl z-10">
+    <nav className="relative bg-slate-700/30 mt-12 p-6 flex justify-center items-center md:justify-between rounded-xl z-10 h-20">
       <Link className="text-white uppercase" href="/">
         Michele
       </Link>
-      <div className="hidden md:flex gap-4 text-gray-400">
+      <div className="hidden md:flex gap-4 text-gray-400 items-center">
         <Link className="uppercase" href="/">
           About
         </Link>
@@ -19,6 +60,53 @@ export const Navbar = function Navbar() {
         <Link className="uppercase" href="/">
           Contact
         </Link>
+        {user ? (
+          <button
+            onClick={() => {
+              setMenuOpen((prev) => !prev);
+            }}
+          >
+            <Image
+              src={
+                user.avatar_url ||
+                `https://ui-avatars.com/api/?background=000000&color=fff&name=${
+                  user.full_name || "Unknown"
+                }`
+              }
+              alt="avatar"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <ul
+              style={{
+                display: menuOpen ? "block" : "none",
+              }}
+              className="menu absolute mt-2 right-0 bg-base-200 w-56 rounded-box"
+            >
+              <li>
+                <Link href="/app">
+                  <FontAwesomeIcon icon={faUser} size="xl" /> Account
+                </Link>
+              </li>
+              <li>
+                <Link href="/app/settings">
+                  <FontAwesomeIcon icon={faGears} size="xl" /> Settings
+                </Link>
+              </li>
+              <li>
+                <Link href="/logout">
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </button>
+        ) : (
+          <Link className="uppercase" href="/login">
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );

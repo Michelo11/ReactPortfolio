@@ -6,6 +6,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { Database } from "../types/supabase";
+import Link from "next/link";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const supabase = createClientComponentClient<Database>();
@@ -52,7 +53,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
 
         router.push(next);
       }}
-      className="custom-card flex-col items-center gap-4 justify-center p-4 mt-10 w-1/3"
+      className="custom-card flex-col items-center gap-4 justify-center p-4 mt-10 md:w-1/3"
     >
       <h1 className="font-extrabold text-3xl">
         {mode === "login" ? "Login" : "Register"}
@@ -103,6 +104,17 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       <button type="submit" className="custom-button py-2 w-full">
         {mode === "login" ? "Login" : "Register"}
       </button>
+      <p className="text-gray-400">
+        {mode === "login"
+          ? "Don't have an account?"
+          : "Already have an account?"}{" "}
+        <Link
+          href={mode === "login" ? "/register" : "/login"}
+          className="text-blue-500"
+        >
+          {mode === "login" ? "Register" : "Login"}
+        </Link>
+      </p>
     </form>
   );
 }
