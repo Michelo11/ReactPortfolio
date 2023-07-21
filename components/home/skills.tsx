@@ -121,7 +121,7 @@ export const Skills = function Skills() {
   const [selected, setSelected] = useState(0);
 
   return (
-    <Section name="My Skills" id={2}>
+    <Section code="skills" name="My Skills" id={2}>
       <div className="flex flex-col md:flex-row justify-between items-center md:w-3/4 2xl:w-2/5">
         <div className="flex flex-col gap-4">
           {skills.map((skill) => (

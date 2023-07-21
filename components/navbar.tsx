@@ -3,7 +3,7 @@
 import type { Database } from "@/types/supabase";
 import {
   faArrowRightFromBracket,
-  faGears,
+  faGear,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,16 +48,16 @@ export const Navbar = function Navbar() {
         Michele
       </Link>
       <div className="hidden md:flex gap-4 text-gray-400 items-center">
-        <Link className="uppercase" href="/">
+        <Link scroll className="uppercase" href="/#about">
           About
         </Link>
-        <Link className="uppercase" href="/">
+        <Link className="uppercase" href="/#skills">
           Skills
         </Link>
-        <Link className="uppercase" href="/">
+        <Link className="uppercase" href="/#services">
           Services
         </Link>
-        <Link className="uppercase" href="/">
+        <Link className="uppercase" href="/#contact">
           Contact
         </Link>
         {user ? (
@@ -74,15 +74,15 @@ export const Navbar = function Navbar() {
                 }`
               }
               alt="avatar"
-              width={32}
-              height={32}
+              width={40}
+              height={40}
               className="rounded-full"
             />
             <ul
               style={{
                 display: menuOpen ? "block" : "none",
               }}
-              className="menu absolute mt-2 right-0 bg-base-200 w-56 rounded-box"
+              className="menu absolute mt-2 right-0 bg-base-200  w-56 rounded-box border-2 border-[#141414]"
             >
               <li>
                 <Link href="/app">
@@ -91,7 +91,7 @@ export const Navbar = function Navbar() {
               </li>
               <li>
                 <Link href="/app/settings">
-                  <FontAwesomeIcon icon={faGears} size="xl" /> Settings
+                  <FontAwesomeIcon icon={faGear} size="xl" /> Settings
                 </Link>
               </li>
               <li>

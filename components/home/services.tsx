@@ -68,7 +68,7 @@ const ServiceCard = function ServiceCard(
 
 export const Services = function Services() {
   return (
-    <Section name="My Services" id={3}>
+    <Section code="services" name="My Services" id={3}>
       <Image
         className="absolute -left-20 w-[1000px] -z-10 select-none"
         src="/img/pink-blur.svg"

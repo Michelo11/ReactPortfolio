@@ -12,7 +12,7 @@
   }
 
   .custom-button {
-    @apply font-bold rounded-xl bg-primary shadow-lg shadow-primary/50 p-4 flex text-center items-center justify-center;
+    @apply font-bold rounded-lg bg-primary shadow-lg shadow-primary/50 p-4 flex text-center items-center justify-center;
   }
 
   .input-card {

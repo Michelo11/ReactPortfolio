@@ -48,7 +48,7 @@ export default function AppPage() {
       <div className="flex flex-col gap-4">
         {orders.map((order) => (
           <div
-            className="custom-card p-4 w-fit flex flex-col gap-2"
+            className="custom-card p-6 w-fit flex flex-col gap-2 mt-6"
             key={order.id}
           >
             <h2 className="text-xl font-bold">Order #{order.id}</h2>

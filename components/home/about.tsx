@@ -3,7 +3,7 @@ import { Section } from "./section";
 
 export const AboutMe = function AboutMe() {
   return (
-    <Section id={1} name="About Me">
+    <Section id={1} code="about" name="About Me">
       <div className="custom-card flex-col md:flex-row justify-between xl:w-3/4 2xl:w-2/5 md:h-80">
         <Image
           src="/img/coding.jpg"

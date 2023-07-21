@@ -18,7 +18,7 @@ const ReviewCard = function ReviewCard(props: Review) {
 
 export const Reviews = function Reviews() {
   return (
-    <Section name="My Reviews" id={4}>
+    <Section code="reviews" name="My Reviews" id={4}>
       <div className="flex w-full gap-4 justify-center">
         <ReviewCard
           id="1"

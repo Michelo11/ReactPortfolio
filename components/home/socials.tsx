@@ -33,7 +33,7 @@ const SocialCard = function SocialCard({
 
 export const Socials = function Socials() {
   return (
-    <Section name="My Socials" id={5}>
+    <Section code="contact" name="My Socials" id={5}>
       <div className="flex flex-col justify-center items-center w-full gap-4">
         <SocialCard
           icon={faEnvelope}
