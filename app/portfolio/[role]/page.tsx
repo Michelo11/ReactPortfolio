@@ -1,11 +1,48 @@
 "use client";
 
 import Carousel from "@/components/carousel";
+import type { Database } from "@/types/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function PortfolioPage() {
-  const [project, setProject] = useState<string | null>(null);
+  const supabase = createClientComponentClient<Database>();
+  const { role } = useParams();
+
+  const [project, setProject] = useState<
+    Database["public"]["Tables"]["projects"]["Row"] | null
+  >(null);
+  const [projects, setProjects] = useState<
+    Database["public"]["Tables"]["projects"]["Row"][]
+  >([]);
+
+  useEffect(() => {
+    if (!role) return;
+
+    supabase
+      .from("projects")
+      .select("*")
+      .eq("role", role)
+      .then(({ data }) => {
+        if (!data) return;
+
+        const mapped = data.map((project) => {
+          const imageUrls = project.images.map((image) => {
+            return supabase.storage.from("projects").getPublicUrl(image).data
+              .publicUrl;
+          });
+
+          return {
+            ...project,
+            images: imageUrls,
+          };
+        });
+
+        setProjects(mapped);
+      });
+  }, [supabase, role]);
 
   return (
     <div className="w-full">
@@ -23,21 +60,30 @@ export default function PortfolioPage() {
           View my past works
         </h1>
         <h2 className="text-gray-400 text-center">
-          Get inspired and don&apos;t believe just to my words, see what I already
-          did for other clients!
+          Get inspired and don&apos;t believe just to my words, see what I
+          already did for other clients!
         </h2>
       </div>
-      <button className="mt-6" onClick={() => setProject("1")}>
-        <Image
-          src="/img/placeholder.png"
-          width={300}
-          height={300}
-          alt="Placeholder"
-          className="rounded-lg"
-          draggable={false}
-        />
-      </button>
-      {project !== null && <Carousel close={() => setProject(null)} />}
+      {projects.map((project) => (
+        <button
+          key={project.id}
+          className="mt-6"
+          onClick={() => setProject(project)}
+        >
+          <Image
+            src={project.images[0] || "/img/placeholder.png"}
+            width={300}
+            height={300}
+            alt={project.name}
+            className="rounded-lg"
+            draggable={false}
+          />
+        </button>
+      ))}
+
+      {project !== null && (
+        <Carousel project={project} close={() => setProject(null)} />
+      )}
     </div>
   );
 }

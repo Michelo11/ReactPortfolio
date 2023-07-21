@@ -237,6 +237,33 @@ export interface Database {
           },
         ];
       };
+      projects: {
+        Row: {
+          created_at: string;
+          description: string;
+          id: number;
+          images: string[];
+          name: string;
+          role: string;
+        };
+        Insert: {
+          created_at?: string;
+          description: string;
+          id?: number;
+          images?: string[];
+          name: string;
+          role: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          id?: number;
+          images?: string[];
+          name?: string;
+          role?: string;
+        };
+        Relationships: [];
+      };
       reviews: {
         Row: {
           code: string | null;
