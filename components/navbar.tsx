@@ -16,7 +16,10 @@ export const Navbar = function Navbar() {
   const supabase = createClientComponentClient<Database>();
 
   const [user, setUser] = useState<
-    null | Database["public"]["Tables"]["profiles"]["Row"]
+    | null
+    | (Database["public"]["Tables"]["profiles"]["Row"] & {
+        admins: Database["public"]["Tables"]["admins"]["Row"][];
+      })
   >(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -29,7 +32,7 @@ export const Navbar = function Navbar() {
 
       supabase
         .from("profiles")
-        .select("*")
+        .select("*, admins (user_id)")
         .eq("id", session.user.id)
         .single()
         .then(({ data }) => {
@@ -89,11 +92,13 @@ export const Navbar = function Navbar() {
                   <FontAwesomeIcon icon={faUser} size="xl" /> Account
                 </Link>
               </li>
-              <li>
-                <Link href="/app/settings">
-                  <FontAwesomeIcon icon={faGear} size="xl" /> Settings
-                </Link>
-              </li>
+              {user.admins.length > 0 && (
+                <li>
+                  <Link href="/admin">
+                    <FontAwesomeIcon icon={faGear} size="xl" /> Admin
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link href="/logout">
                   <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}
