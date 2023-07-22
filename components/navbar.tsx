@@ -1,103 +1,118 @@
+"use client";
+
+import type { Database } from "@/types/supabase";
+import {
+  faArrowRightFromBracket,
+  faGear,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 
-export default function Navbar() {
-  const collapse = useRef(null);
+export const Navbar = function Navbar() {
+  const supabase = createClientComponentClient<Database>();
+
+  const [user, setUser] = useState<
+    | null
+    | (Database["public"]["Tables"]["profiles"]["Row"] & {
+        admins: Database["public"]["Tables"]["admins"]["Row"][];
+      })
+  >(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
+      if (!session || !session.user) {
+        setUser(null);
+        return;
+      }
+
+      supabase
+        .from("profiles")
+        .select("*, admins (user_id)")
+        .eq("id", session.user.id)
+        .single()
+        .then(({ data }) => {
+          setUser(data);
+        });
+    });
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   return (
-    <nav className="bg-[#111827] w-full z-20 top-0 left-0 border-b border-gray-600">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link href="/" className="flex items-center" draggable="false">
-          <Image
-            src="/img/logo.png"
-            className="h-8 mr-3 rounded-full"
-            alt="Michele Logo"
-            draggable="false"
-            width={32}
-            height={32}
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-            Michele
-          </span>
+    <nav className="relative bg-slate-700/30 mt-12 p-6 flex justify-center items-center md:justify-between rounded-xl z-10 h-20">
+      <Link className="text-white uppercase" href="/">
+        Michele
+      </Link>
+      <div className="hidden md:flex gap-4 text-gray-400 items-center">
+        <Link scroll className="uppercase" href="/#about">
+          About
         </Link>
-        <div className="flex md:order-2">
-          <Link
-            href="#contact"
-            type="button"
-            className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
-          >
-            Contact
-          </Link>
+        <Link className="uppercase" href="/#skills">
+          Skills
+        </Link>
+        <Link className="uppercase" href="/#services">
+          Services
+        </Link>
+        <Link className="uppercase" href="/#contact">
+          Contact
+        </Link>
+        {user ? (
           <button
-          onClick={() => {
-            (collapse.current as any).classList.toggle("hidden");
-          }}
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            className="inline-flex items-center p-2 text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-400 hover:bg-gray-700 focus:ring-gray-600"
-            aria-controls="navbar-sticky"
-            aria-expanded="false"
+            onClick={() => {
+              setMenuOpen((prev) => !prev);
+            }}
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-6 h-6"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+            <Image
+              src={
+                user.avatar_url ||
+                `https://ui-avatars.com/api/?background=000000&color=fff&name=${
+                  user.full_name || "Unknown"
+                }`
+              }
+              alt="avatar"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <ul
+              style={{
+                display: menuOpen ? "block" : "none",
+              }}
+              className="menu absolute mt-2 right-0 bg-base-200  w-56 rounded-box border-2 border-[#141414]"
             >
-              <path
-                fillRule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+              <li>
+                <Link href="/app">
+                  <FontAwesomeIcon icon={faUser} size="xl" /> Account
+                </Link>
+              </li>
+              {user.admins.length > 0 && (
+                <li>
+                  <Link href="/admin">
+                    <FontAwesomeIcon icon={faGear} size="xl" /> Admin
+                  </Link>
+                </li>
+              )}
+              <li>
+                <Link href="/logout">
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}
+                  Logout
+                </Link>
+              </li>
+            </ul>
           </button>
-        </div>
-        <div
-          ref={collapse}
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-          id="navbar-sticky"
-        >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 text-white bg-transparent border-gray-700">
-            {" "}
-            <li>
-              <Link
-                href="/"
-                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:p-0 md:text-blue-500"
-                aria-current="page"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#about"
-                className="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:text-blue-500 text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#skills"
-                className="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:text-blue-500 text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"
-              >
-                Skill
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#services"
-                className="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:text-blue-500 text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"
-              >
-                Services
-              </Link>
-            </li>
-          </ul>
-        </div>
+        ) : (
+          <Link className="uppercase" href="/login">
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );
-}
+};
