@@ -1,15 +1,9 @@
-"use client";
-
 import { PlaceQuoteForm } from "@/components/quote/place-form";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function PlaceQuotePage() {
-  const params = useSearchParams();
-  const service = params.get("service") as "frontend" | "backend" | "fullstack";
-  const pages = Number(params.get("pages") as string);
-  const timeframe = Number(params.get("timeframe") as string);
-
   return (
     <>
       <div className="mt-20">
@@ -29,7 +23,9 @@ export default function PlaceQuotePage() {
           We need some other details and youc an place your order
         </h2>
       </div>
-      <PlaceQuoteForm pages={pages} timeframe={timeframe} service={service} />
+      <Suspense fallback={<div></div>}>
+        <PlaceQuoteForm />
+      </Suspense>
     </>
   );
 }

@@ -4,19 +4,17 @@ import type { Database } from "@/types/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { BaseForm } from "./base-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export const PlaceQuoteForm = function PlaceQuoteForm({
-  service,
-  pages,
-  timeframe,
-}: {
-  service: "frontend" | "backend" | "fullstack";
-  pages: number;
-  timeframe: number;
-}) {
+export const PlaceQuoteForm = function PlaceQuoteForm() {
   const supabase = createClientComponentClient<Database>();
+
   const router = useRouter();
+  const params = useSearchParams();
+  const service = params.get("service") as "frontend" | "backend" | "fullstack";
+  const pages = Number(params.get("pages") as string);
+  const timeframe = Number(params.get("timeframe") as string);
+
   const [description, setDescription] = useState("N/A");
   const [references, setReferences] = useState("N/A");
 
