@@ -78,6 +78,7 @@ export default function ReviewPage() {
             placeholder="John Doe"
             onChange={(e) => setName(e.target.value)}
             value={name}
+            required
           />
         </div>
 
@@ -87,9 +88,10 @@ export default function ReviewPage() {
             className="textarea textarea-bordered bg-[#313a4e] appearance-none w-full"
             name="comment"
             id="comment"
-            placeholder="John Doe"
+            placeholder="Your comment here"
             onChange={(e) => setComment(e.target.value)}
             value={comment}
+            required
           />
         </div>
         <div className="flex flex-col gap-2">
