@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -64,6 +65,7 @@ export default function RootLayout({
           />
         </div>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
