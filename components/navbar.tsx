@@ -92,13 +92,6 @@ export const Navbar = function Navbar() {
                   <FontAwesomeIcon icon={faUser} size="xl" /> Account
                 </Link>
               </li>
-              {user.admins.length > 0 && (
-                <li>
-                  <Link href="/admin">
-                    <FontAwesomeIcon icon={faGear} size="xl" /> Admin
-                  </Link>
-                </li>
-              )}
               <li>
                 <Link href="/logout">
                   <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}

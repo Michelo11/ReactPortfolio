@@ -93,7 +93,7 @@ export default function ChatBubble({
       <div
         onContextMenu={handleContextMenu}
         className={
-          "w-fit max-w-md " + (self ? "ml-auto chat-end" : "chat-start")
+          "w-fit max-w-md mt-2 " + (self ? "ml-auto chat-end" : "chat-start")
         }
       >
         <div
