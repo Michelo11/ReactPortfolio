@@ -87,11 +87,13 @@ export const Navbar = function Navbar() {
               }}
               className="menu absolute mt-2 right-0 bg-base-200  w-56 rounded-box border-2 border-[#141414]"
             >
+              {/*
               <li>
-                <Link href="/app">
-                  <FontAwesomeIcon icon={faUser} size="xl" /> Account
-                </Link>
-              </li>
+                  <Link href="/app">
+                    <FontAwesomeIcon icon={faUser} size="xl" /> Account
+                  </Link>
+                </li>
+              */}
               <li>
                 <Link href="/logout">
                   <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}

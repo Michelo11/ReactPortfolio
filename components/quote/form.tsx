@@ -63,11 +63,9 @@ export const QuoteForm = function QuoteForm() {
         ],
         price: price,
         button: {
-          text: "Continue",
+          text: "Contact",
           onClick: () => {
-            router.push(
-              `/quote/place?service=${service}&pages=${pages}&timeframe=${timeframe}`,
-            );
+            router.push("mailto:hello@michelemanna.me");
           },
         },
       }}

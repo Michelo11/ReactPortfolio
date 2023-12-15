@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { Analytics } from '@vercel/analytics/react';
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 
@@ -11,6 +11,7 @@ config.autoAddCss = false;
 
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import AlertContainer from "@/components/alert-container";
 
 export const metadata: Metadata = {
   title: "Michele Manna",
@@ -23,11 +24,15 @@ export const metadata: Metadata = {
     description: "A developer, designer and system administrator",
     images: ["/img/logo.png"],
   },
-  themeColor: "#225bdd",
-  viewport: "width=device-width, initial-scale=1",
 };
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  themeColor: "#225bdd",
+  width: "device-width",
+  initialScale: 1,
+}
 
 export default function RootLayout({
   children,
@@ -38,11 +43,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={
-          "flex flex-col mx-10 md:mx-24 bg-background text-white " +
+          "flex flex-col px-10 md:px-24 bg-background text-white " +
           inter.className
         }
       >
         <Navbar />
+        <AlertContainer />
         <div className="bg-texture bg-repeat p-4 justify-center items-center h-full gap-6 flex flex-col">
           <Image
             className="hidden md:block absolute top-0 left-10 w-[700px] -z-10 select-none"

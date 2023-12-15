@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { Typewriter } from 'react-simple-typewriter'
 
 export const Hero = function Hero() {
   return (
@@ -18,20 +22,23 @@ export const Hero = function Hero() {
         alt="logo"
         width={75}
         height={75}
+        draggable={false}
         placeholder="empty"
       />
       <h1 className="text-white font-bold text-xl text-center">
         HELLO, MY NAME IS MICHELE.
       </h1>
-      <h2 className="text-primary font-extrabold text-4xl text-center">
-        SYSTEM ADMINISTRATION
+      <h2 className="text-primary font-extrabold text-4xl text-center min-h-[48px]">
+        <Typewriter words={["SYSTEM ADMIN", "WEB DEV", "WEB DESIGNER", "BOT DEV"]} loop={false} />
       </h2>
       <p className="text-gray-400 text-center">
         A student from Italy who loves developing fullstack <br /> websites,
         designing and administrating systems.
       </p>
-      <button className="mt-10 custom-button w-48 h-14">LEARN MORE</button>
-      <a href="#about" className="animate-bounce">
+      <Link href="#about" className="mt-10 custom-button w-48 h-14">
+        LEARN MORE
+      </Link>
+      <a className="animate-bounce">
         <Image
           placeholder="empty"
           src="/img/angle.svg"
@@ -39,6 +46,7 @@ export const Hero = function Hero() {
           alt="angle"
           width={120}
           height={200}
+          draggable={false}
         />
         <Image
           placeholder="empty"

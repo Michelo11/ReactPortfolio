@@ -6,6 +6,7 @@ import {
   faServer,
   faTerminal,
   faWandMagicSparkles,
+  faRobot,
 } from "@fortawesome/free-solid-svg-icons";
 import { Section } from "./section";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -66,6 +67,16 @@ const skills: Skill[] = [
     skills: {
       Figma: "90%",
       "Adobe XD": "60%",
+    },
+  },
+  {
+    id: "bot",
+    name: "Bot Developer",
+    years: "1+ Years",
+    icon: faRobot,
+    skills: {
+      "API Knowledge": "100%",
+      "Additional tools": "80%",
     },
   },
 ];
