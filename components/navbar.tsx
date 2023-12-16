@@ -18,7 +18,7 @@ export const Navbar = function Navbar() {
   const [user, setUser] = useState<
     | null
     | (Database["public"]["Tables"]["profiles"]["Row"] & {
-        admins: Database["public"]["Tables"]["admins"]["Row"][];
+        admins: any;
       })
   >(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -85,15 +85,15 @@ export const Navbar = function Navbar() {
               style={{
                 display: menuOpen ? "block" : "none",
               }}
-              className="menu absolute mt-2 right-0 bg-base-200  w-56 rounded-box border-2 border-[#141414]"
+              className="menu absolute mt-2 right-0 bg-base-200 w-56 rounded-box border-2 border-[#141414]"
             >
-              {/*
-              <li>
-                  <Link href="/app">
-                    <FontAwesomeIcon icon={faUser} size="xl" /> Account
+              {user.admins?.user_id != null && (
+                <li>
+                  <Link href="/admin">
+                    <FontAwesomeIcon icon={faUser} size="xl" /> Admin
                   </Link>
                 </li>
-              */}
+              )}
               <li>
                 <Link href="/logout">
                   <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}

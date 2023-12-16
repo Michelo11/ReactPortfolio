@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import Alert from "./alert";
+import { ErrorAlert, SuccessAlert } from "./alert";
 
 export default function AlertContainer() {
   const searchParams = useSearchParams();
@@ -20,10 +20,18 @@ export default function AlertContainer() {
     }, 2000);
   }, [searchParams, pathName, router]);
 
-  if (searchParams.has("success") || searchParams.has("error")) {
+  if (searchParams.has("error")) {
     return (
       <div className="fixed w-screen top-4 left-0 flex flex-col justify-center items-center z-10">
-        <Alert message={searchParams.get("error") as string} />
+        <ErrorAlert message={searchParams.get("error") as string} />
+      </div>
+    );
+  }
+
+  if (searchParams.has("success")) {
+    return (
+      <div className="fixed w-screen top-4 left-0 flex flex-col justify-center items-center z-10">
+        <SuccessAlert message={searchParams.get("success") as string} />
       </div>
     );
   }

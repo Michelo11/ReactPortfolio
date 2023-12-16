@@ -58,7 +58,7 @@ export const Reviews = function Reviews() {
           }}
         >
           {reviews.map((review, index) => (
-            <ReviewCard {...review} />
+            <ReviewCard key={"review-"+index} {...review} />
           ))}
         </Carousel>
       </div>

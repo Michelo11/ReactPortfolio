@@ -52,13 +52,16 @@ export default function ReviewPage() {
           }
 
           const urls = [];
+          console.log(images)
           for (const image of images) {
             const { data } = await supabase.storage
               .from("portfolio")
-              .upload(`projects/${name}`, image);
+              .upload(`projects/${name}/${image.name.trim()}`, image);
 
             if (data?.path) urls.push(data.path);
           }
+
+          console.log(urls)
 
           await supabase
             .from("projects")
@@ -69,7 +72,7 @@ export default function ReviewPage() {
               images: urls,
             })
             .then(() => {
-              alert("Project added successfully");
+              router.push("?success=" + "Project added");
               setName("");
               setRole("");
               setDescription("");
