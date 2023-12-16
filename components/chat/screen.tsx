@@ -143,7 +143,6 @@ export default function ChatScreen() {
 
         setMessages(newMessages);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, supabase]);
 
   return (

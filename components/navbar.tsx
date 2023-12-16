@@ -90,10 +90,15 @@ export const Navbar = function Navbar() {
               {user.admins?.user_id != null && (
                 <li>
                   <Link href="/admin">
-                    <FontAwesomeIcon icon={faUser} size="xl" /> Admin
+                    <FontAwesomeIcon icon={faGear} size="xl" /> Admin
                   </Link>
                 </li>
               )}
+              <li>
+                <Link href="/app">
+                  <FontAwesomeIcon icon={faUser} size="xl" /> Account
+                </Link>
+              </li>
               <li>
                 <Link href="/logout">
                   <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}
