@@ -23,6 +23,7 @@ module.exports = {
       {
         custom: {
           primary: "#225bdd",
+          "base-200": "#191e24",
         },
       },
     ],

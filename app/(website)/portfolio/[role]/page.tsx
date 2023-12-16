@@ -30,7 +30,7 @@ export default function PortfolioPage() {
 
         const mapped = data.map((project) => {
           const imageUrls = project.images.map((image) => {
-            return supabase.storage.from("projects").getPublicUrl(image).data
+            return supabase.storage.from("portfolio").getPublicUrl(image).data
               .publicUrl;
           });
 
@@ -64,25 +64,33 @@ export default function PortfolioPage() {
           already did for other clients!
         </h2>
       </div>
-      {projects.map((project) => (
-        <button
-          key={project.id}
-          className="mt-6"
-          onClick={() => setProject(project)}
-        >
-          <Image
-            src={project.images[0] || "/img/placeholder.png"}
-            width={300}
-            height={300}
-            alt={project.name}
-            className="rounded-lg"
-            draggable={false}
-          />
-        </button>
-      ))}
+
+      <div className="flex flex-row gap-2 flex-wrap">
+        {projects.map((project) => (
+          <div key={"project-" + project.id} className="mt-6">
+            <button key={project.id} onClick={() => setProject(project)}>
+              <Image
+                src={project.images[0] || "/img/placeholder.png"}
+                width={300}
+                height={200}
+                alt={project.name}
+                className="rounded-lg w-[300px] h-[200px] object-cover"
+                draggable={false}
+              />
+              <h1 className="text-gray-400 mt-2">{project.name}</h1>
+            </button>
+          </div>
+        ))}
+      </div>
 
       {project !== null && (
         <Carousel project={project} close={() => setProject(null)} />
+      )}
+
+      {projects.length === 0 && (
+        <div className="flex justify-center items-center h-[50vh]">
+          <h1 className="text-gray-400">There are no projects for this role</h1>
+        </div>
       )}
     </div>
   );

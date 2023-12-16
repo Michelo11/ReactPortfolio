@@ -21,7 +21,7 @@ export const Footer = function Footer() {
         <Link href="https://github.com/Michelo11" aria-label="GitHub">
           <FontAwesomeIcon icon={faGithub} />
         </Link>
-        <Link href="https://twitter.com/Michelo117" aria-label="Twitter">
+        <Link href="https://x.com/Michelo117" aria-label="Twitter">
           <FontAwesomeIcon icon={faTwitter} />
         </Link>
         <Link href="/">

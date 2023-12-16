@@ -61,7 +61,7 @@ export default function ReviewPage() {
               rating,
               code: null,
             })
-            .eq("code", params.get("code"))
+            .eq("code", params.get("code") as string)
             .then(() => {
               router.replace("/");
             });

@@ -3,7 +3,16 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["ghqiylcgqhnksizktvmf.supabase.co", "ui-avatars.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ghqiylcgqhnksizktvmf.supabase.co",
+      },
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+      },
+    ],
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports

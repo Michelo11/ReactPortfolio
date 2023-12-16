@@ -3,6 +3,7 @@
 import type { Database } from "@/types/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 export default function ReviewPage() {
@@ -13,6 +14,8 @@ export default function ReviewPage() {
   const [role, setRole] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   return (
     <div className="flex flex-col gap-4 w-full my-14">
@@ -38,17 +41,30 @@ export default function ReviewPage() {
         onSubmit={async (e) => {
           e.preventDefault();
 
+          if (role != "web" && role != "uix" && role != "bot" && role != "sysadmin") {
+            router.push("?error=" + "Invalid role");
+            return;
+          }
+
+          if (images.length == 0) {
+            router.push("?error=" + "You must upload at least one image");
+            return;
+          }
+
           const urls = [];
+          console.log(images)
           for (const image of images) {
             const { data } = await supabase.storage
               .from("portfolio")
-              .upload(`projects/${name}`, image);
+              .upload(`projects/${name}/${image.name.trim()}`, image);
 
             if (data?.path) urls.push(data.path);
           }
 
+          console.log(urls)
+
           await supabase
-            .from("portfolio")
+            .from("projects")
             .insert({
               name,
               description,
@@ -56,7 +72,7 @@ export default function ReviewPage() {
               images: urls,
             })
             .then(() => {
-              alert("Project added successfully");
+              router.push("?success=" + "Project added");
               setName("");
               setRole("");
               setDescription("");
@@ -85,7 +101,7 @@ export default function ReviewPage() {
             type="text"
             name="role"
             id="role"
-            placeholder="Web Developer"
+            placeholder="web, uix, bot, sysadmin"
             onChange={(e) => setRole(e.target.value)}
             value={role}
             required
@@ -94,7 +110,7 @@ export default function ReviewPage() {
         <div className="flex flex-col gap-2">
           <label htmlFor="description">Description</label>
           <textarea
-            className="textarea textarea-bordered bg-[#313a4e] appearance-none w-full"
+            className="textarea bg-[#313a4e] appearance-none w-full"
             name="description"
             id="description"
             placeholder="..."
@@ -130,7 +146,6 @@ export default function ReviewPage() {
             multiple
             type="file"
             hidden
-            required
             ref={fileRef}
           />
         </div>

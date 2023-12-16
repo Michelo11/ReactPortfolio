@@ -1,7 +1,7 @@
 import { type IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { Section } from "./section";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faDiscord, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
@@ -48,10 +48,10 @@ export const Socials = function Socials() {
           link="https://discord.com/users/573539095452844052"
         />
         <SocialCard
-          icon={faTwitter}
+          icon={faXTwitter}
           content="Michelo117"
-          social="twitter"
-          link="https://twitter.com/Michelo117"
+          social="X"
+          link="https://x.com/Michelo117"
         />
       </div>
     </Section>

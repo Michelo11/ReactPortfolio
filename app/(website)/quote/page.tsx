@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function QuotePage() {
   return (
     <>
-      <div className="mt-20">
+      <div className="md:mt-20">
         <Image
           className="hidden md:block absolute left-1/4 -top-10 w-[800px] -z-10 select-none"
           src="/img/blue-blur.svg"

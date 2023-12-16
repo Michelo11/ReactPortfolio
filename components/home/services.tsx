@@ -2,11 +2,13 @@ import {
   type IconDefinition,
   faCode,
   faPalette,
+  faRobot,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUbuntu } from "@fortawesome/free-brands-svg-icons";
 import { Section } from "./section";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 type Service = {
   id: string;
@@ -29,6 +31,13 @@ const services: Service[] = [
     description:
       "I can create a modern graphic design for your app or website.",
     icon: faPalette,
+  },
+  {
+    id: "bot",
+    name: "Bot development",
+    description:
+      "I can create a Discord bot for your server, with custom commands and features.",
+    icon: faRobot,
   },
   {
     id: "sysadmin",
@@ -58,9 +67,9 @@ const ServiceCard = function ServiceCard(
       <div className="flex flex-col gap-2 text-left">
         <h1 className="text-xl text-gray-400">{props.name}</h1>
         <p className="text-gray-500">{props.description}</p>
-        <button className="custom-button font-bold text-sm mt-auto w-44 h-10 shadow-lg shadow-primary/30">
+        <Link href={"/portfolio/" + props.id} className="custom-button font-bold text-sm mt-auto w-44 h-10 shadow-lg shadow-primary/30">
           VIEW PORTFOLIO
-        </button>
+        </Link>
       </div>
     </div>
   );

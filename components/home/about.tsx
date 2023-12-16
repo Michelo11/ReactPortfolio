@@ -10,6 +10,7 @@ export const AboutMe = function AboutMe() {
           alt="coding"
           width={500}
           height={500}
+          draggable={false}
           className="md:w-1/2 block h-full rounded-l-xl opacity-40"
         />
         <div className="py-12 md:py-0 px-12 md:w-1/2 h-full text-left text-gray-400 flex flex-col gap-4 justify-center items-center">
@@ -19,7 +20,6 @@ export const AboutMe = function AboutMe() {
           </p>
           <p>
             You can learn more about my skills and the languages I know below.
-            I&apos;m also the CEO at RocketCreations.
           </p>
           <p className="text-white w-full">- Michele</p>
         </div>
