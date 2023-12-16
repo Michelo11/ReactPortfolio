@@ -41,7 +41,7 @@ export const Hero = function Hero() {
       <Link href="#about" className="mt-10 custom-button w-48 h-14">
         LEARN MORE
       </Link>
-      <a className="animate-bounce">
+      <div>
         <Image
           placeholder="empty"
           src="/img/angle.svg"
@@ -58,6 +58,7 @@ export const Hero = function Hero() {
           alt="angle"
           width={120}
           height={200}
+          draggable={false}
         />
         <Image
           placeholder="empty"
@@ -66,8 +67,9 @@ export const Hero = function Hero() {
           alt="angle"
           width={120}
           height={200}
+          draggable={false}
         />
-      </a>
+      </div>
     </div>
   );
 };
