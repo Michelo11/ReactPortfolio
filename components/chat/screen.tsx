@@ -2,7 +2,7 @@
 
 import type { Database } from "@/types/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import ChatBubble from "./bubble";
 import ChatInput from "./input";
@@ -59,10 +59,11 @@ export default function ChatScreen() {
             (payload) => {
               switch (payload.eventType) {
                 case "INSERT":
-                  setMessages((messages: any) => {
+                  console.log(payload.new);
+                  setMessages((messages: Message[]) => {
                     if (payload.new.reply) {
                       const reply = messages.find(
-                        (m: any) => m.id === payload.new.reply,
+                        (m: Message) => m.id === payload.new.reply,
                       );
 
                       payload.new.reply = reply
@@ -73,7 +74,11 @@ export default function ChatScreen() {
                         : undefined;
                     }
 
-                    return [...messages, payload.new];
+                    if (!(payload.new.created_at instanceof Date)) {
+                      payload.new.created_at = new Date(payload.new.created_at);
+                    }
+
+                    return [...messages, payload.new as Message];
                   });
 
                   break;
@@ -144,6 +149,10 @@ export default function ChatScreen() {
         setMessages(newMessages);
       });
   }, [id, supabase]);
+
+  if (error) {
+    return redirect("/");
+  }
 
   return (
     <>

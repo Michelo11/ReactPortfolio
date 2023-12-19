@@ -79,7 +79,7 @@ export default function ChatBubble({
   }, [attachments, supabase]);
 
   return (
-    <div className="w-full last-of-type:pb-12">
+    <div className="w-full last-of-type:pb-3">
       {date && (
         <div
           className={
@@ -98,7 +98,7 @@ export default function ChatBubble({
       >
         <div
           className={
-            "bg-[#1d283a] rounded-xl p-2 " +
+            "bg-[#1d283a] rounded-xl p-2 break-all " +
             (self ? "!bg-primary" : "bg-slate-700/30")
           }
         >
