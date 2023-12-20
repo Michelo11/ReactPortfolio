@@ -4,7 +4,7 @@ import type { Database } from "@/types/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ReviewPage() {
   const supabase = createClientComponentClient<Database>();
@@ -16,18 +16,34 @@ export default function ReviewPage() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
 
-  if (!params.has("code")) {
-    return (
-      <div className="flex flex-col gap-4 w-full my-14">
-        <div>
-          <h1 className="text-primary font-extrabold text-4xl uppercase text-center">
-            No data found for this review
-          </h1>
-          <h2 className="text-gray-400 text-center">Please try again later</h2>
-        </div>
-      </div>
-    );
-  }
+  const [user, setUser] = useState<
+    | null
+    | (Database["public"]["Tables"]["profiles"]["Row"] & {
+        admins: any;
+      })
+  >(null);
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
+      if (!session || !session.user) {
+        setUser(null);
+        return;
+      }
+
+      supabase
+        .from("profiles")
+        .select("*, admins (user_id)")
+        .eq("id", session.user.id)
+        .single()
+        .then(({ data }) => {
+          setUser(data);
+        });
+    });
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   return (
     <div className="flex flex-col gap-4 w-full my-14">
@@ -53,25 +69,45 @@ export default function ReviewPage() {
         onSubmit={(e) => {
           e.preventDefault();
 
-          supabase
-            .from("reviews")
-            .update({
-              name,
-              comment,
-              rating,
-              code: null,
-            })
-            .eq("code", params.get("code") as string)
-            .then(() => {
-              router.replace("/");
-            });
+          if (params.has("code")) {
+            supabase
+              .from("reviews")
+              .update({
+                name,
+                comment,
+                rating,
+                code: null,
+              })
+              .eq("code", params.get("code") as string)
+              .then(() => {
+                router.replace("/");
+              });
+          } else {
+            supabase
+              .from("reviews")
+              .insert({
+                name,
+                comment,
+                rating,
+              })
+              .then(() => {
+                if (!user || user.admins?.user_id == null) {
+                  router.replace("/");
+                } else {
+                  router.push("?success=" + "Created review");
+                  setName("");
+                  setComment("");
+                  setRating(5);
+                }
+              });
+          }
         }}
         className="flex flex-col gap-4 md:w-1/3 pb-4 mx-auto"
       >
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Name</label>
           <input
-            className="input bg-[#313a4e] appearance-none w-full"
+            className="input bg-[#313a4e] appearance-none w-full text-base"
             type="text"
             name="name"
             id="name"
@@ -85,7 +121,7 @@ export default function ReviewPage() {
         <div className="flex flex-col gap-2">
           <label htmlFor="comment">Comment</label>
           <textarea
-            className="textarea textarea-bordered bg-[#313a4e] appearance-none w-full"
+            className="textarea text-base bg-[#313a4e] appearance-none w-full"
             name="comment"
             id="comment"
             placeholder="Your comment here"
