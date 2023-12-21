@@ -1,11 +1,12 @@
 "use client";
 
 import type { Database } from "@/types/supabase";
-import { faReply, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faReply, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Item, Menu, useContextMenu } from "react-contexify";
 import "react-contexify/ReactContexify.css";
@@ -103,19 +104,42 @@ export default function ChatBubble({
           }
         >
           <div className="flex flex-wrap gap-2">
-            {attachmentUrls.map((url) => (
-              <div
-                key={url}
-                className="relative w-32 h-32 rounded-xl overflow-hidden"
-              >
-                <Image
-                  src={url}
-                  layout="fill"
-                  objectFit="cover"
-                  alt="Attachment"
-                />
-              </div>
-            ))}
+            {attachmentUrls.map((url) => {
+              if (
+                url.endsWith(".jpg") ||
+                url.endsWith(".png") ||
+                url.endsWith(".jpeg")
+              ) {
+                return (
+                  <div
+                    key={url}
+                    className="relative w-32 h-32 rounded-xl overflow-hidden"
+                  >
+                    <Image
+                      src={url}
+                      layout="fill"
+                      objectFit="cover"
+                      alt="Attachment"
+                    />
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  href={url}
+                  key={url}
+                  className="flex flex-row items-center bg-[#121926] rounded-lg mx-1 p-2"
+                >
+                  <FontAwesomeIcon icon={faFile} color="#225bdd" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-tertiary text-sm ml-2">
+                      Attachment
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
 
           {reply && (
