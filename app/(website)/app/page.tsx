@@ -9,19 +9,25 @@ import Link from "next/link";
 export default function AppPage() {
   const supabase = createClientComponentClient<Database>();
   const [orders, setOrders] = useState<
-    (Database["public"]["Tables"]["commissions"]["Row"] & {
-      invoices: Database["public"]["Tables"]["invoices"]["Row"][];
+    (Database["public"]["Tables"]["chats"]["Row"] & {
+      commissions?: Database["public"]["Tables"]["commissions"]["Row"] & {
+        invoices: Database["public"]["Tables"]["invoices"]["Row"][];
+      };
     })[]
   >([]);
 
   useEffect(() => {
     supabase
-      .from("commissions")
-      .select("*, invoices (*)")
+      .from("chats")
+      .select("*, commissions (*, invoices (*))")
       .then(({ data }) => {
         if (!data) return;
-
-        setOrders(data);
+        setOrders(
+          data.map((order) => ({
+            ...order,
+            commissions: order.commissions[0],
+          })),
+        );
       });
   }, [supabase]);
 
@@ -45,32 +51,51 @@ export default function AppPage() {
           with me!
         </h2>
       </div>
-      <div className="flex flex-col gap-4">
+      {orders.length === 0 && (
+        <div className="flex flex-col items-center justify-center gap-4 my-auto mt-20">
+          <h2 className="text-gray-400">No orders yet!</h2>
+        </div>
+      )}
+      <div className="flex flex-col xl:flex-row gap-4">
         {orders.map((order) => (
           <div
-            className="custom-card p-6 w-fit flex flex-col gap-2 mt-6"
+            className="custom-card p-6 w-full xl:w-fit flex flex-col gap-2 mt-6 min-w-[300px]"
             key={order.id}
           >
             <h2 className="text-xl font-bold">Order #{order.id}</h2>
             <div className="flex flex-col gap-1">
-              <p className="text-lg">Description: {order.description}</p>
-              <p className="text-lg">Deadline: {order.deadline}</p>
-              <p className="text-lg">Price: €{order.value}</p>
-              <p className="text-lg">Invoices: {order.invoices.length || 0}</p>
+              <p className="text-lg">
+                Description: {order.commissions?.description}
+              </p>
+              <p className="text-lg">Deadline: {order.commissions?.deadline}</p>
+              <p className="text-lg">Price: €{order.commissions?.value}</p>
+              <p className="text-lg">
+                Invoices: {order.commissions?.invoices.length || 0}
+              </p>
             </div>
-            {!order.complete && (
+            {!order.commissions?.complete && (
               <Link
-                href={"/app/chat/" + order.chat}
+                href={"/app/chat/" + order.id}
                 className="mt-auto custom-button"
               >
                 Open chat
               </Link>
             )}
-            {order.complete && (
+            {order.commissions?.complete && (
               <button
                 className="mt-auto custom-button"
-                onClick={() => {
-                  // todo
+                onClick={async () => {
+                  const { data } = await supabase.storage
+                    .from("uploads")
+                    .download(order.commissions?.archivie || "");
+                  const url = window.URL.createObjectURL(data!);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "complete.zip";
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  window.URL.revokeObjectURL(url);
                 }}
               >
                 Download assets

@@ -83,7 +83,7 @@ export default function ChatInput({
         e.preventDefault();
         handleSubmit();
       }}
-      className="absolute w-absolute md:w-absolute-md bottom-36 md:bottom-20"
+      className="fixed w-absolute md:w-absolute-md bottom-0 py-14 md:py-6 bg-[#1c2230] bg-texture bg-repeat rounded-t-xl z-30"
     >
       {attachments.length > 0 && (
         <div className="flex items-center justify-between">

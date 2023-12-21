@@ -84,7 +84,7 @@ export default function ReviewPage() {
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Name</label>
           <input
-            className="input bg-[#313a4e] appearance-none w-full"
+            className="input bg-[#313a4e] appearance-none w-full text-base"
             type="text"
             name="name"
             id="name"
@@ -97,7 +97,7 @@ export default function ReviewPage() {
         <div className="flex flex-col gap-2">
           <label htmlFor="role">Role</label>
           <input
-            className="input bg-[#313a4e] appearance-none w-full"
+            className="input bg-[#313a4e] appearance-none w-full text-base"
             type="text"
             name="role"
             id="role"
@@ -110,7 +110,7 @@ export default function ReviewPage() {
         <div className="flex flex-col gap-2">
           <label htmlFor="description">Description</label>
           <textarea
-            className="textarea bg-[#313a4e] appearance-none w-full"
+            className="textarea bg-[#313a4e] appearance-none w-full text-base"
             name="description"
             id="description"
             placeholder="..."

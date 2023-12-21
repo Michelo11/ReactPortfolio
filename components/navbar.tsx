@@ -4,6 +4,7 @@ import type { Database } from "@/types/supabase";
 import {
   faArrowRightFromBracket,
   faGear,
+  faStar,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -90,13 +91,25 @@ export const Navbar = function Navbar() {
               {user.admins?.user_id != null && (
                 <li>
                   <Link href="/admin">
-                    <FontAwesomeIcon icon={faUser} size="xl" /> Admin
+                    <FontAwesomeIcon icon={faGear} size="xl" width={20} /> Admin
+                  </Link>
+                </li>
+              )}
+              {user.admins?.user_id != null && (
+                <li>
+                  <Link href="/app/review">
+                    <FontAwesomeIcon icon={faStar} size="xl" width={20} /> Reviews
                   </Link>
                 </li>
               )}
               <li>
+                <Link href="/app">
+                  <FontAwesomeIcon icon={faUser} size="xl" width={20} /> Account
+                </Link>
+              </li>
+              <li>
                 <Link href="/logout">
-                  <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />{" "}
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" width={20} />
                   Logout
                 </Link>
               </li>

@@ -14,11 +14,13 @@ const ReviewCard = function ReviewCard(
   return (
     <div className="custom-card xl:h-52 md:w-1/2 p-10 text-center flex-col justify-center items-center h-full m-auto">
       <div className="mb-2">
-        <FontAwesomeIcon icon={faStar} className="text-2xl text-primary" />
-        <FontAwesomeIcon icon={faStar} className="text-2xl text-primary" />
-        <FontAwesomeIcon icon={faStar} className="text-2xl text-primary" />
-        <FontAwesomeIcon icon={faStar} className="text-2xl text-primary" />
-        <FontAwesomeIcon icon={faStar} className="text-2xl text-primary" />
+        {[...Array(props.rating)].map((_, index) => (
+          <FontAwesomeIcon
+            key={"star-" + index}
+            icon={faStar}
+            className="text-2xl text-primary"
+          />
+        ))}
       </div>
 
       <p className="text-gray-500 w-3/4">{props.comment}</p>
@@ -44,9 +46,11 @@ export const Reviews = function Reviews() {
 
   return (
     <Section code="reviews" name="My Reviews" id={4}>
-      <div  style={{
-        maxWidth: "calc(100vw - 2rem)",
-      }}>
+      <div
+        style={{
+          maxWidth: "calc(100vw - 2rem)",
+        }}
+      >
         <Carousel
           defaultControlsConfig={{
             pagingDotsStyle: {
@@ -58,7 +62,7 @@ export const Reviews = function Reviews() {
           }}
         >
           {reviews.map((review, index) => (
-            <ReviewCard key={"review-"+index} {...review} />
+            <ReviewCard key={"review-" + index} {...review} />
           ))}
         </Carousel>
       </div>
