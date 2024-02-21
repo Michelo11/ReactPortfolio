@@ -25,7 +25,7 @@ export async function middleware(req: NextRequest) {
       req.nextUrl.pathname === "/login" ||
       req.nextUrl.pathname === "/register"
     ) {
-      return NextResponse.redirect("/app");
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_APP_URL + "/app");
     }
 
     if (req.nextUrl.pathname === "/admin") {
