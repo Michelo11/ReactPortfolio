@@ -24,9 +24,10 @@ export default function CarouselComponent({
       }}
       className="left-0 top-0 z-20 fixed w-screen h-screen flex flex-col items-center justify-center bg-black/70"
     >
-      <div ref={ref} className="md:w-[600px] md:h-[400px] m-auto">
+      <div ref={ref} className="m-auto">
         <Carousel
-          
+          adaptiveHeight
+          className="!h-fit *:items-center"
           defaultControlsConfig={{
             pagingDotsStyle: {
               fill: "white",
@@ -37,13 +38,18 @@ export default function CarouselComponent({
           }}
         >
           {project.images.map((image, i) => (
-            <div key={"slide-" + i} className="relative w-full">
+            <div
+              key={"slide-" + i}
+              className="relative w-full m-auto max-h-[600px] overflow-y-auto"
+            >
               <Image
                 src={image}
-                width={800}
-                height={500}
+                width={600}
+                height={600}
                 alt="image"
-                className="w-[600px] h-[400px] m-auto"
+                className="m-auto"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABKklEQVRIS+2Uz0oDQRSGv9F"
               />
             </div>
           ))}

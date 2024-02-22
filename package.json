@@ -19,28 +19,28 @@
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.17",
     "@vercel/analytics": "^1.1.1",
-    "autoprefixer": "10.4.16",
+    "autoprefixer": "10.4.17",
     "encoding": "^0.1.13",
     "eslint": "8.55.0",
     "moment": "^2.29.4",
     "next": "14.0.4",
     "nuka-carousel": "^7.0.0",
-    "postcss": "8.4.32",
+    "postcss": "8.4.35",
     "react": "18.2.0",
     "react-contexify": "^6.0.0",
     "react-dom": "18.2.0",
     "react-simple-typewriter": "^5.0.1",
-    "sharp": "^0.33.0",
-    "tailwindcss": "3.3.6",
+    "sharp": "^0.33.2",
+    "tailwindcss": "3.4.1",
     "typescript": "5.3.3"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
     "@types/nuka-carousel": "^4.4.6",
-    "daisyui": "^4.4.20",
+    "daisyui": "^4.7.2",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.9"
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11"
   }
 }
