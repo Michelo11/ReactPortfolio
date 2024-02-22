@@ -1,6 +1,5 @@
 import { PlaceQuoteForm } from "@/components/quote/place-form";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 export default function PlaceQuotePage() {
