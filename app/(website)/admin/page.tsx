@@ -46,7 +46,8 @@ export default function ReviewPage() {
               role != "web" &&
               role != "uix" &&
               role != "bot" &&
-              role != "sysadmin"
+              role != "sysadmin" &&
+              role != "plugin"
             ) {
               router.push("?error=" + "Invalid role");
               return;
@@ -107,7 +108,7 @@ export default function ReviewPage() {
               type="text"
               name="role"
               id="role"
-              placeholder="web, uix, bot, sysadmin"
+              placeholder="web, uix, bot, sysadmin, plugin"
               onChange={(e) => setRole(e.target.value)}
               value={role}
               required
