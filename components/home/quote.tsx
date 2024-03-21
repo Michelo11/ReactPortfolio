@@ -13,10 +13,10 @@ export const InstantQuote = function InstantQuote() {
           Get a rough quote with my online quote calculator!
         </p>
         <Link
-          href="/quote"
+          href="https://discord.gg/Z8kYbnbnf6"
           className="uppercase from-[#42426f] to-[#514770] bg-gradient-to-r p-4 px-8 font-bold text-center rounded-xl"
         >
-          Click for a quote!
+          Contact Me
         </Link>
       </div>
     </div>

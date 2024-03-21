@@ -3,6 +3,7 @@ import {
   faCode,
   faPalette,
   faRobot,
+  faCube,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUbuntu } from "@fortawesome/free-brands-svg-icons";
 import { Section } from "./section";
@@ -45,6 +46,13 @@ const services: Service[] = [
     description:
       "I can manage your system, install any program you need and maintain it.",
     icon: faUbuntu,
+  },
+  {
+    id: "plugin",
+    name: "Plugin Development",
+    description:
+      "I can create a plugin for your server, with custom commands and features.",
+    icon: faCube,
   },
 ];
 

@@ -116,9 +116,7 @@ export const Navbar = function Navbar() {
             </ul>
           </button>
         ) : (
-          <Link className="uppercase" href="/login">
-            Login
-          </Link>
+          <></>
         )}
       </div>
     </nav>

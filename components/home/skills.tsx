@@ -7,6 +7,7 @@ import {
   faTerminal,
   faWandMagicSparkles,
   faRobot,
+  faCube,
 } from "@fortawesome/free-solid-svg-icons";
 import { Section } from "./section";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,6 +80,16 @@ const skills: Skill[] = [
       "Additional tools": "80%",
     },
   },
+  {
+    id: "plugin",
+    name: "Plugin Developer",
+    years: "1+ Years",
+    icon: faCube,
+    skills: {
+      "Spigot API": "70%",
+      "Java:": "80%"
+    },
+  }
 ];
 
 const SkillButton = function SkillButton(

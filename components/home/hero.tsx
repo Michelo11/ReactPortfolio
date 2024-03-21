@@ -30,12 +30,12 @@ export const Hero = function Hero() {
       </h1>
       <h2 className="text-primary font-extrabold text-4xl text-center min-h-[48px]">
         <Typewriter
-          words={["SYSTEM ADMIN", "WEB DEV", "WEB DESIGNER", "BOT DEV"]}
+          words={["SYSTEM ADMIN", "WEB DEV", "WEB DESIGNER", "BOT DEV", "PLUGIN DEV"]}
           loop={false}
         />
       </h2>
       <p className="text-gray-400 text-center">
-        A student from Italy who loves developing fullstack <br /> websites, bots,
+        A student from Italy who loves developing fullstack <br /> websites, bots, plugins,
         designing and administrating systems.
       </p>
       <Link href="#about" className="mt-10 custom-button w-48 h-14">
