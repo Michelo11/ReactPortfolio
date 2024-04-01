@@ -87,7 +87,7 @@ const skills: Skill[] = [
     icon: faCube,
     skills: {
       "Spigot API": "70%",
-      "Java:": "80%"
+      "Java": "80%"
     },
   }
 ];
