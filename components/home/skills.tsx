@@ -27,7 +27,7 @@ const skills: Skill[] = [
   {
     id: "frontend",
     name: "Front-End Developer",
-    years: "2+ Years",
+    years: "3+ Years",
     icon: faCode,
     skills: {
       HTML: "100%",
@@ -37,12 +37,13 @@ const skills: Skill[] = [
       React: "80%",
       ReactNative: "50%",
       Astro: "90%",
+      Capacitor: "70%",
     },
   },
   {
     id: "backend",
     name: "Back-End Developer",
-    years: "2+ Years",
+    years: "3+ Years",
     icon: faServer,
     skills: {
       NodeJS: "80%",
@@ -53,7 +54,7 @@ const skills: Skill[] = [
   {
     id: "sysadmin",
     name: "System Administration",
-    years: "1+ Years",
+    years: "2+ Years",
     icon: faTerminal,
     skills: {
       Linux: "90%",
@@ -63,7 +64,7 @@ const skills: Skill[] = [
   {
     id: "uix",
     name: "UI/UX Designer",
-    years: "2+ Years",
+    years: "3+ Years",
     icon: faWandMagicSparkles,
     skills: {
       Figma: "90%",
@@ -73,7 +74,7 @@ const skills: Skill[] = [
   {
     id: "bot",
     name: "Bot Developer",
-    years: "1+ Years",
+    years: "2+ Years",
     icon: faRobot,
     skills: {
       "API Knowledge": "100%",
