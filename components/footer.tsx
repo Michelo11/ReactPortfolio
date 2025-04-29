@@ -1,7 +1,7 @@
 import {
   faDiscord,
   faGithub,
-  faTwitter,
+  faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -24,7 +24,7 @@ export const Footer = function Footer() {
           <FontAwesomeIcon icon={faGithub} />
         </Link>
         <Link href="https://x.com/Michelo117" aria-label="Twitter">
-          <FontAwesomeIcon icon={faTwitter} />
+          <FontAwesomeIcon icon={faXTwitter} />
         </Link>
         <Link href="/">
           <Image
